@@ -1,0 +1,73 @@
+<%@ Title="Liste Message" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Aventure</h2>
+        <com:THyperLink
+            ID="NewMessageButton"
+            Text="Nouveau message"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.NewMessage', array('aventureId'=>$this->Aventure->id)) %>"
+            Visible="<%= $this->isUserAllowToCreateMessage() %>" 
+        />
+        <com:TControl Visible="<%= $this->isUserAllowToJoinAventure() %>" >
+            <br/>
+            <com:TLinkButton 
+                ID="JoinAventureButton"
+                Text="Joindre l'aventure"
+                OnClick="joinAventure"            
+            />
+        </com:TControl>
+        <com:TControl Visible="<%= $this->isUserAllowToQuitAventure() %>" >
+            <br/>
+            <com:TLinkButton 
+                ID="QuitAventureButton"
+                Text="Quitter l'aventure"
+                OnClick="quitAventure"
+            />
+        </com:TControl>
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Aventure
+    </div>
+    
+    <div class="main-content">
+        Aventure :
+        <com:TLiteral Text="<%= $this->Aventure->nom %>" /> <br />
+         
+        Description: <br/>
+        <com:DSLiteral Text="<%= $this->Aventure->description %>" HLengh="100" /><br/><br/>
+        
+        <com:TControl Visible="<%= !$this->User->isGuest && $this->User->Profile->id == $this->Aventure->createurId %>" >
+        	<com:TLiteral Text="Vous êtes maitre de cette aventure."/><br/><br/>
+        </com:TControl>        
+    </div>
+    
+    <div class="main-header">
+		Messages
+    </div>
+    
+    <div class="main-content">     
+        <com:TRepeater ID="RepeaterMessage"
+            ItemRenderer="Application.pages.aventures.MessageRenderer"
+            AllowPaging="true"
+            AllowCustomPaging="true"
+            PageSize="5"
+        />
+ 	
+    	<com:TPager ControlToPaginate="RepeaterMessage" OnPageIndexChanged="pageChanged" />
+	</div>
+ 
+</com:TContent>

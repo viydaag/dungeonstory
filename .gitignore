@@ -1,0 +1,10 @@
+
+assets/*
+_notes/*
+_mmServerScripts/*
+git-ui.bat
+protected/runtime/*
+*/*.LCK
+manuals/*
+images/*
+music/*

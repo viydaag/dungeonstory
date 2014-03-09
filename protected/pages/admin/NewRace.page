@@ -1,0 +1,175 @@
+<%@ Title="Administration des races" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Race</h2>
+        <com:TLinkButton
+        	ID="SaveRace"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+            ValidationGroup="Group1"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <com:THyperLink 
+			Text="Annuler" 
+            NavigateUrl="<%= $this->Service->constructUrl('admin.ListRace') %>"
+            Target="_parent"
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvelle race
+    </div>
+    
+    <div class="main-content">     
+        <table border="0" cellspacing="1" style="width:720px;table-layout:fixed">
+            <tr>
+            	<td width="150">Nom</td>
+                <td><com:TTextBox ID="Nom"/></td>
+            </tr>
+            <tr>
+                <td>MF</td>
+                <td>
+                	<com:TTextBox ID="ModifForce"/>
+                	<com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifForce" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>
+            </tr>
+            <tr>
+                <td>MD</td>
+                <td>
+                	<com:TTextBox ID="ModifDex"/>
+                	<com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifDex" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>
+            </tr>
+            <tr>
+                <td>MCo</td>
+                <td>
+                	<com:TTextBox ID="ModifConst"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifConst" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>
+            </tr>
+            <tr>
+                <td>MI</td>
+                <td>
+                	<com:TTextBox ID="ModifIntel"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifIntel" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>
+            </tr>
+           	<tr>
+                <td>MS</td>
+                <td>
+                	<com:TTextBox ID="ModifSag"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifSag" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>
+            </tr>
+            <tr>
+                <td>MCh</td>
+                <td>
+                	<com:TTextBox ID="ModifCha"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="ModifCha" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>            
+            </tr>
+            <tr>
+                <td>Min Age</td>
+                <td>
+                	<com:TTextBox ID="MinAge"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MinAge" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>            
+            </tr>
+            <tr>
+                <td>Max Age</td>
+                <td>
+                	<com:TTextBox ID="MaxAge"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MaxAge" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>            
+            </tr>
+            <tr>
+                <td>MA</td>
+                <td>
+                	<com:TTextBox ID="ModifAge"/>
+                    <com:TRegularExpressionValidator 
+                        ValidationGroup="Group1" 
+                        ControlToValidate="ModifAge" 
+                        RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                        Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                    />
+                </td>            
+            </tr>
+            <tr>
+                <td>Taille Moyenne</td>
+                <td>
+                	<com:TTextBox ID="TailleMoyenne"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="TailleMoyenne" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>            
+            </tr>
+            <tr>
+                <td>MT</td>
+                <td>
+                	<com:TTextBox ID="ModifTaille"/>
+					<com:TRegularExpressionValidator 
+                        ValidationGroup="Group1" 
+                        ControlToValidate="ModifTaille" 
+                        RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                        Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                    />
+
+                </td>            
+            </tr>
+            <tr>
+                <td>Poids Moyen</td>
+                <td>
+                	<com:TTextBox ID="PoidsMoyen"/>
+                    <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="PoidsMoyen" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+                </td>            
+            </tr>
+            <tr>
+                <td>MP</td>
+                <td>
+                	<com:TTextBox ID="ModifPoids"/>
+                    <com:TRegularExpressionValidator 
+                        ValidationGroup="Group1" 
+                        ControlToValidate="ModifPoids" 
+                        RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                        Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                    />
+                </td>            
+            </tr>
+            <tr>
+            	<td>Description Courte</td>
+                <td>
+                    <com:TTextBox
+                    	ID="DescriptionCourte"
+                        ReadOnly="false"
+                        TextMode="MultiLine" 
+                        Rows="2"   
+                        Columns="60"
+                    />
+                </td>
+            </tr>
+            <tr>
+            	<td>Description</td>
+                <td>
+                    <com:TTextBox
+                    	ID="Description"
+                        ReadOnly="false"
+                        TextMode="MultiLine" 
+                        Rows="10" 
+                        Columns="60"
+                    />
+                </td>
+            </tr>
+    	</table>
+	</div>
+ 
+</com:TContent>

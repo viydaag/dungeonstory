@@ -1,0 +1,170 @@
+<%@ Title="Marché" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Marché</h2>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.Buy', array('shopId'=>$this->Shop->id)) %>"
+            Text="Acheter"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.Sell', array('shopId'=>$this->Shop->id)) %>"
+            Text="Vendre"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+        <br/>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.ListShop') %>"
+            Text="Retour aux magasins"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+    
+    
+	<div class="main-header">
+		Acheter
+    </div>
+    
+    <div class="main-content">
+    
+        <com:TTabPanel>
+        	<com:TTabView Caption="Armes">
+
+                <com:TActiveDataGrid
+                    ID="WeaponTable"
+                    DataKeyField="id"
+                    AutoGenerateColumns="false"
+                    OnItemCreated="itemCreated"
+                    OnItemCommand="itemCommand"
+                    HeaderStyle.BackColor="white"
+                    HeaderStyle.ForeColor="black"
+                    GridLines="Both"
+                    CellSpacing="0"
+                    CellPadding="2">
+
+                    <com:TActiveTemplateColumn ID="ItemColumn">
+                        <prop:HeaderTemplate>Lien</prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <com:TLightWindow 
+                                Href="#<%=$this->LightWindowContent->getClientID()%>"
+                                Title="<%# $this->Parent->Data->name %>"
+                                Height="350"
+                                Width="600"
+                                Top="300"
+                                
+                            />
+                            <com:TPanel ID="LightWindowContent">
+                                <div class="form-center">
+                                    <div class="form-row">
+                                        <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                        <com:TLabel ID="Name" Text="<%# $this->Parent->Data->name %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                        <com:TLabel ID="Description" Text="<%# $this->Parent->Data->description %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                        <com:TLabel ID="Weight" Text="<%# $this->Parent->Data->weight %>" />
+                                    </div>
+                                     <div class="form-row">
+                                        <com:TLabel ID="WeaponTypeLabel" Text="Type d'arme : " ForControl="WeaponType" />
+                                        <com:TLabel ID="WeaponType" Text="<%# $this->Page->getWeaponTypeString($this->Parent->Data->weaponType->type) %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel ID="BaseDamageLabel" Text="Dégât de base : " ForControl="BaseDamage" />
+                                        <com:TLabel ID="BaseDamage" Text="<%# $this->Parent->Data->damage %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel ID="BaseDamageTypeLabel" Text="Type de dégât : " ForControl="BaseDamageType" />
+                                        <com:TLabel ID="BaseDamageType" Text="<%# $this->Parent->Data->weaponType->damageType->name %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel ID="AdditionalDamageLabel" Text="Dégât additionnel : " ForControl="AdditionalDamage" />
+                                        <com:TLabel ID="AdditionalDamage" Text="<%# $this->Parent->Data->additionalDamage %>" />
+                                    </div>
+                                    <div class="form-row">
+                                        <com:TLabel Text="Type de dégât additionel: " ForControl="AdditionalDamageType" />
+                                        <com:TLabel ID="AdditionalDamageType" Text="<%# $this->Parent->Data->additionalDamageType->name %>" /> 
+                                    </div>
+                                    <com:TActivePanel ID="WeaponMagicalBonusDiv" CssClass="form-row">
+                                        <com:TLabel ID="WeaponMagicalBonusLabel" Text="Bonus magique arme " ForControl="WeaponMagicalBonus" />
+                                        <com:TLabel ID="WeaponMagicalBonus" Text="<%# $this->Parent->Data->magicalBonus %>"/>
+                                    </com:TActivePanel>
+                                </div>
+                                <br/>
+                                </div>
+                            </com:TPanel>
+                        </prop:ItemTemplate>
+                    </com:TActiveTemplateColumn>
+
+                    <com:TActiveTemplateColumn ID="ItemCostColumn">
+                        <prop:HeaderTemplate>Prix</prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <com:TActiveLabel ID="ItemCost" Text="<%# $this->Parent->Data->cost %>"/>
+                        </prop:ItemTemplate>
+                    </com:TActiveTemplateColumn>
+
+                    <com:TTemplateColumn ID="SliderColumn">
+                        <prop:HeaderTemplate>Quantité</prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <com:TSlider ID="QuantitySlider" 
+                                MinValue="0" 
+                                MaxValue="<%# $this->Parent->Data->quantity %>" 
+                                Direction="Horizontal" 
+                                Value="0" 
+                                AutoPostBack="false"
+                                StepSize="1"
+                            >
+                                <prop:ClientSide.onSlide>
+                                    $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
+                                    $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;
+                                </prop:ClientSide.onSlide>
+                                <prop:ClientSide.onChange>
+                                    $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
+                                    $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;
+                                </prop:ClientSide.onChange>
+                            </com:TSlider>
+                            <com:TLabel ID="SliderResult"><%= $this->QuantitySlider->Value %></com:TLabel>                   
+                        </prop:ItemTemplate>
+                    </com:TTemplateColumn>
+
+                    <com:TActiveTemplateColumn ID="ItemTotalCostColumn">
+                        <prop:HeaderTemplate>Prix total</prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <com:TActiveTextBox ID="ItemTotalCost" Text="0" MaxLength="10" Columns="7" ReadOnly="true" Style="text-align:right"/>
+                        </prop:ItemTemplate>
+                    </com:TActiveTemplateColumn>
+                    
+                    <com:TActiveButtonColumn
+                        ID="BuyItemColumn"
+                        HeaderText=""
+                        Text="Acheter"
+                        ButtonType="PushButton"
+                        CommandName="buyItem"
+                    />
+
+                </com:TActiveDataGrid>
+                
+            </com:TTabView>
+         </com:TTabPanel>
+                
+	</div>
+ 
+</com:TContent>

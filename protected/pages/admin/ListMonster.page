@@ -1,0 +1,48 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Monstre</h2>
+        <com:THyperLink
+        	ID="NewMonster"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewMonster') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Monstres
+    </div>
+    
+    <div class="main-content">
+
+		<div class="main-content">
+            <com:TRepeater ID="RepeaterMonster">
+                <prop:ItemTemplate>
+                    <com:THyperLink
+                        Text="<%# $this->Data->name %>"
+                        NavigateUrl="<%= $this->Service->constructUrl('admin.EditMonster', array('monsterId'=>$this->Data->id)) %>"
+                        Target="_parent"
+                        CssClass="list-item"
+                    />
+                    <br/>
+                </prop:ItemTemplate>
+            </com:TRepeater>
+        </div>
+               
+	</div>
+ 
+</com:TContent>

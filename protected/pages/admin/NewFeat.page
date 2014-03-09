@@ -1,0 +1,101 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Caractéristique" 
+        	SaveButton.OnClick="Page.saveButtonClicked" 
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListFeat') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvelle caractéristique
+    </div>
+    
+    <div class="main-content">
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                <com:TTextBox ID="Name" Columns="50"/>
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="Description" />
+                <com:TTextBox ID="Description" TextMode="MultiLine" Rows="3" Columns="60" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="TypeLabel" Text="Type : " ForControl="TypeList" />
+                <com:TDropDownList ID="TypeList">
+                    <com:TListItem Value="0" Text="Général" />
+                    <com:TListItem Value="1" Text="Création d'item" />
+                    <com:TListItem Value="2" Text="Metamagique" />
+                </com:TDropDownList>
+            </div>
+        </div>
+        <br />
+        <br />
+        <com:DSLiteral Text="Prérequis : " />
+        <com:TLinkButton ID="AddPrerequisiteButton" Text="Ajouter" OnClick="addPrerequisite" />
+        <br/>
+		<com:TActivePanel ID="MyPanel">
+			<com:TRepeater ID="FeatPrerequisiteRepeater" EnableViewState="true">
+				<prop:ItemTemplate>
+					<com:TActiveDropDownList ID="PrerequisiteTypeList"
+                    	OnSelectedIndexChanged="Page.prerequisiteTypeChanged"
+                        SelectedValue="<%# $this->Data['type'] %>"
+                        CustomData="<%# $this->Data['id'] %>"
+                        AutoPostBack="true" > 
+                        <com:TListItem Value="0" Text="Caractéristique" />
+                        <com:TListItem Value="1" Text="Attribut" />
+                        <com:TListItem Value="2" Text="Bonus d'attaque" />
+                        <com:TListItem Value="3" Text="Niveau" />
+                        <com:TListItem Value="4" Text="Classe" />
+        			</com:TActiveDropDownList>
+                    <com:TActiveDropDownList ID="FeatList" 
+                        DataTextField="name"
+                        DataValueField="id"
+                        DataSource="<%# FeatRecord::finder()->findall() %>"
+                        SelectedValue="<%# $this->Data['feat'] %>"
+                        CustomData="<%# $this->Data['id'] %>"
+                        Display="<%# $this->Data['type'] == 0 ? 'Dynamic' : 'Hidden' %>"
+                    />
+                    <com:TActiveDropDownList ID="ClassList" 
+                        DataTextField="nom"
+                        DataValueField="id"
+                        DataSource="<%# ClasseRecord::finder()->findall() %>"
+                        SelectedValue="<%# $this->Data['class'] %>"
+                        CustomData="<%# $this->Data['id'] %>"
+                        Display="<%# $this->Data['type'] == FeatPrerequisiteRecord::CLASSE ? 'Dynamic' : 'Hidden' %>"
+                        Style="display:run-in"
+                    />
+                    <com:TActiveDropDownList ID="AbilityList" 
+                        DataTextField="name"
+                        DataValueField="id"
+                        DataSource="<%# AbilityRecord::finder()->findall() %>"
+                        SelectedValue="<%# $this->Data['ability'] %>"
+                        CustomData="<%# $this->Data['id'] %>"
+                        Display="<%# $this->Data['type'] == 1 ? 'Dynamic' : 'Hidden' %>"
+                    />
+                    <com:TActiveTextBox ID="Value" 
+                    	Text="<%# $this->Data['value'] %>"
+                        CustomData="<%# $this->Data['id'] %>"
+                        Display="<%# $this->Data['type'] == 1 || $this->Data['type'] == 2 || $this->Data['type'] == 3 ? 'Dynamic' : 'Hidden' %>"
+                    />
+                    <com:TActiveLinkButton ID="Supprimer" Text="Supprimer" CustomData="<%# $this->Data['id'] %>" OnCallback="Page.supprimerTextBox" />
+                    <br/>
+				</prop:ItemTemplate>
+			</com:TRepeater>
+		</com:TActivePanel>
+       	<com:TJavascriptLogger/>
+    </div>
+    
+</com:TContent>

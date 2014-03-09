@@ -1,0 +1,341 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Personnage</h2>
+        <com:TLinkButton
+        	ID="Next"
+            Text="Suivant"
+            OnClick="next"
+            Visible="<%= $this->ResumeView->Active == false %>"
+        />
+        <com:TLinkButton
+        	ID="Back"
+            Text="Précédent"
+            OnClick="back"
+            Visible="<%= $this->ClasseView->Active == false %>"
+        />
+        <com:TLinkButton
+            ID="ResetSkills"
+            Text="Reset"
+            OnClick="resetSkillPoints"
+            Visible="<%= $this->SkillsView->Active %>"
+        />
+        <com:TLinkButton
+        	ID="SaveLevel"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+            Visible="<%= $this->ResumeView->Active %>"
+        />
+        <br/>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('persos.ViewPerso', array('persoId'=>$this->User->Perso->id)) %>"
+            Text="Annuler"
+            Target="_parent" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Niveau
+    </div>
+
+    <div class="main-content">
+    
+        <com:TMultiView ID="PersoMultiView">
+
+            <!-- Class -->
+            <com:TView ID="ClasseView">
+                <div class="main-header">
+                    Classe
+                </div>
+
+                <div class="main-content">
+                    <span>Classe:</span>
+                    <com:TDropDownList ID="ClasseList"  
+                        DataTextField="nom"
+                        DataValueField="id"
+                    />
+                </div>                
+            </com:TView>
+
+            <!-- Abilities -->
+            <com:TView ID="AbilityView">
+                <div class="main-header">
+                    Attributs
+                </div>
+                <div class="main-content">
+                    <span>Points restants:</span>
+                    <com:TActiveTextbox ID="PointAttribut"  
+                        ReadOnly="true"
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <br/>
+                    <div class="form">
+                        <com:TActiveRepeater ID="RepeaterAbility">
+                            <prop:ItemTemplate>
+                                <div class="form-row-center">
+                                    <com:TActiveLabel ID="AbiltyLabel" Text="<%# $this->Data['abilityId'] %>" ForControl="Ability" />        
+                                    <com:TActiveTextBox 
+                                        ID="Ability" 
+                                        ReadOnly="true" 
+                                        MaxLength="2"
+                                        Width="30px"
+                                        Text="<%# $this->Data['value'] %>"
+                                        CustomData="<%# $this->Data['id'] %>"
+                                    />
+                                    <com:TActiveButton 
+                                        ID="AddButton"
+                                        Text="+"
+                                        OnCommand="Page.modifyScore"
+                                        CommandName="add"
+                                        CustomData="<%# $this->Data['id'] %>"
+                                    />
+                                    <com:TActiveButton 
+                                        ID="SubButton"
+                                        Text="-"
+                                        OnCommand="Page.modifyScore"
+                                        CommandName="sub"
+                                        CustomData="<%# $this->Data['id'] %>"
+                                    />
+                                </div>
+                            </prop:ItemTemplate>
+                        </com:TActiveRepeater>
+                    </div>
+                </div>
+
+            </com:TView>
+
+             <!-- Skills -->
+            <com:TView ID="SkillsView">
+                <div class="main-header">
+                    Compétences
+                </div>
+                <div class="main-content">
+                    <com:TLabel Text="Points restants : " />
+                    <com:TActiveLabel ID="RemainingPoints" />
+                    <br/>
+                    <com:TActiveDataGrid
+                        ID="SkillTable"
+                        DataKeyField="id"
+                        AutoGenerateColumns="false"
+                        OnItemCommand="modifySkillPoints"
+                        OnItemDataBound="dataBindSkillRepeater"
+                        HeaderStyle.BackColor="white"
+                        HeaderStyle.ForeColor="black"
+                        GridLines="Both"
+                        CellSpacing="0"
+                        CellPadding="2">
+                        
+                        <com:TActiveBoundColumn
+                            ID="SkillNameColumn"
+                            HeaderText="Nom de la compétence"
+                            DataField="name"
+                        />
+                        
+                        <com:TActiveTemplateColumn ID="SkillRankColumn" HeaderText="Rang" >
+                            <prop:ItemTemplate>
+                                <com:TActiveRepeater ID="PersoSkillsRepeater">
+                                    <prop:ItemTemplate>
+                                         <com:TActiveLabel ID="SkillRank" Text="<%# $this->Data->rank %>"/> 
+                                    </prop:ItemTemplate>
+                                </com:TActiveRepeater>
+                            </prop:ItemTemplate>
+                        </com:TActiveTemplateColumn>
+                        
+                        <com:TActiveButtonColumn
+                            ID="addSkillColumn"
+                            HeaderText="Ajouter"
+                            Text="+"
+                            ButtonType="PushButton"
+                            CommandName="addSkill"
+                        />
+                        
+                        <com:TActiveButtonColumn
+                            ID="subSkillColumn"
+                            HeaderText="Enlever"
+                            Text="-"
+                            ButtonType="PushButton"
+                            CommandName="subSkill"
+                        />
+
+                        <com:TActiveTemplateColumn ID="SkillClassColumn">
+                            <prop:HeaderTemplate></prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <com:TActiveLabel ID="SkillClassLabel" />
+                            </prop:ItemTemplate>
+                        </com:TActiveTemplateColumn>
+
+                    </com:TActiveDataGrid>
+                </div>
+            </com:TView>
+
+            <!-- Feats -->
+            <com:TView ID="FeatsView">
+                <div class="main-header">
+                    Caractéristiques
+                </div>
+                <div class="main-content">
+                    <com:TLabel Text="Caractéristiques à attribuer"/>
+                    <com:TTextBox ID="RemainingFeat" ReadOnly="true"/>
+                    <br/>
+                    <com:DSSelectionList 
+                        ID="Feats"
+                        Label1.Text="Caractéristiques disponibles"
+                        Label2.Text="Caractéristiques assignées à ce niveau"
+                        List1.DataTextField="name"
+                        List1.DataValueField="id"
+                        List2.DataTextField="name"
+                        List2.DataValueField="id"
+                        List2.OnSelectedIndexChanged="Page.featSelectedChanged"
+                    />
+                    <br/>
+                    <com:TLabel Text="Caractéristiques bonus"/>
+                    <br/>
+                    <com:TListBox
+                        ID="LevelFeats"
+                        DataTextField="name"
+                        DataValueField="id"
+                        Enabled="true"
+                    />
+                    <br/>
+                    <br/>
+                    <com:TLabel Text="Caractéristiques déjà acquises"/>
+                    <br/>
+                    <com:TListBox
+                        ID="AssignedFeats"
+                        DataTextField="name"
+                        DataValueField="id"
+                        Enabled="true"
+                    />
+                         
+                </div>
+            </com:TView>
+            
+            <!-- Summary -->
+            <com:TView ID="ResumeView">
+                <div class="main-header">
+                    Résumé
+                </div>
+                <div class="main-content">
+                    <div class="form">
+                        <div class="form-row-center">
+                            <com:TLabel Text="Niveau" ForControl="SummaryLevel"/>
+                            <com:TLabel ID="SummaryLevel" Text="<%= $this->User->Perso->niveau + 1 %>" />
+                        </div>
+                    </div>
+                    <div class="main-header">
+                        Classe
+                    </div>
+                    <div class="main-content">
+                        <div class="form">
+                            <div class="form-row-center">
+                                <com:TLabel Text="Classe" ForControl="SummaryClassName"/>
+                                <com:TLabel ID="SummaryClassName" Text="<%= $this->Classe->nom %>" />
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Niveau" ForControl="SummaryClassLevel"/>
+                                <com:TLabel ID="SummaryClassLevel" Text="<%= $this->ClassLevel %>" />
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Points de vie supplémentaires" ForControl="SummaryClassLife"/>
+                                <com:TLabel ID="SummaryClassLife" Text="<%= $this->Classe->vie %>" />
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Bonus d'attaque" ForControl="SummaryClassAttackBonus"/>
+                                <com:TLabel ID="SummaryClassAttackBonus" Text="<%= $this->ClassLevelBonus->baseAttackBonus %>" />
+                            </div>
+                            <br/>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Jets de sauvegarde"/>
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Réflexe" ForControl="SummaryRefSave"/>
+                                <com:TLabel ID="SummaryRefSave" Text="+<%= $this->ClassLevelBonus->refSave %>" />
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Endurance" ForControl="SummaryFortSave"/>
+                                <com:TLabel ID="SummaryFortSave" Text="+<%= $this->ClassLevelBonus->fortSave %>" />
+                            </div>
+                            <div class="form-row-center">
+                                <com:TLabel Text="Volonté" ForControl="SummaryWillSave"/>
+                                <com:TLabel ID="SummaryWillSave" Text="+<%= $this->ClassLevelBonus->willSave %>" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Abilities -->
+                    <div class="main-header">
+                        Attributs
+                    </div>
+                    <div class="main-content">
+                        <div class="form">
+                            <com:TActiveRepeater ID="RepeaterResumeAbility">
+                                <prop:ItemTemplate>
+                                    <div class="form-row">
+                                        <com:TActiveLabel Text="<%# $this->Data['abilityId'] %> : " />            
+                                        <com:TActiveLabel Text="<%# $this->Data['value'] %>" />
+                                    </div>
+                                </prop:ItemTemplate>
+                            </com:TActiveRepeater>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="main-header">
+                        Compétences
+                    </div>
+                    <div class="main-content">
+                        <com:TDataGrid ID="SkillSummaryTable" 
+                            DataKeyField="id"
+                            AutoGenerateColumns="false"
+                            GridLines="Both"
+                            CellSpacing="0"
+                            CellPadding="2"
+                        >
+                            <com:TBoundColumn
+                                DataField="name"
+                            />
+                            <com:TBoundColumn
+                                DataField="rank"
+                            />
+                        </com:TDataGrid>
+                    </div>
+
+                    <!-- Feats -->
+                    <div class="main-header">
+                        Caractéristiques
+                    </div>
+                    <div class="main-content">
+                        <com:TDataGrid
+                            ID="FeatSummaryTable"
+                            DataKeyField="id"
+                            AutoGenerateColumns="false"
+                            GridLines="Both"
+                            CellSpacing="0"
+                            CellPadding="2"
+                        >                              
+                            <com:TBoundColumn
+                                DataField="name"
+                            />
+                        </com:TDataGrid>
+                    </div>
+
+                </div>
+            </com:TView>            
+            
+        </com:TMultiView>
+
+    </div>
+        <com:TJavascriptLogger/>
+ 
+</com:TContent>

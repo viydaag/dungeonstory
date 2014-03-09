@@ -1,0 +1,116 @@
+<%@ Title="Nouvel utilisateur" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Profil</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="createButtonClicked"
+            ValidationGroup="Group1"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouveau Profil
+    </div>
+    
+    <div class="main-content">
+    	
+        <span>Pseudo:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="Username"
+            ErrorMessage="Veuillez indiquer un pseudo."
+            Display="Dynamic"
+            ValidationGroup="Group1"
+        />
+        <com:TCustomValidator
+            ControlToValidate="Username"
+            ErrorMessage="Désolé, le pseudo choisi est déjà utilisé. Veuillez en saisir un autre."
+            OnServerValidate="checkUsername"
+            Display="Dynamic"
+            ValidationGroup="Group1" 
+        />
+        <br/>
+        <com:TTextBox ID="Username" />
+         
+        <br/>
+        <span>Mot de passe:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="Password"
+            ErrorMessage="Veuillez indiquer un mot de passe."
+            Display="Dynamic"
+            ValidationGroup="Group1" 
+        />
+        <br/>
+        <com:TTextBox ID="Password" TextMode="Password" />
+         
+        <br/>
+        <span>Confirmation mot de passe:</span>
+        <com:TCompareValidator
+            ControlToValidate="Password"
+            ControlToCompare="Password2"
+            ErrorMessage="Différence entre le mot de passe et la confirmation."
+            Display="Dynamic"
+            ValidationGroup="Group1"
+        />
+        <br/>
+        <com:TTextBox ID="Password2" TextMode="Password" />
+         
+         <!--
+        <br/>
+        <span>Rôle:</span>
+        <br/>
+        <com:TDropDownList ID="Role">
+            <com:TListItem Text="Utilisateur standard" Value="0" />
+            <com:TListItem Text="Administrateur" Value="1" />
+        </com:TDropDownList>
+        
+         
+        <br/>
+        <span>Prénom:</span>
+        <br/>
+        <com:TTextBox ID="FirstName" />
+         -->
+        <br/>
+        <span>Nom : </span>
+        <br/>
+        <com:TTextBox ID="Name" />
+        <br/>
+        <span>Email : </span>
+        <br/>
+        
+        <com:TEmailAddressValidator
+            ValidationGroup="Group1"
+            ControlToValidate="Email"
+            FocusOnError="true"
+            Display="Dynamic"
+            ErrorMessage="Adresse email invalide" 
+        />
+        <com:TTextBox ID="Email" />
+        <br/>
+
+        <com:TCaptcha ID="Captcha" TokenImageTheme="5" />
+        <com:TTextBox ID="Input" />
+        <com:TCaptchaValidator CaptchaControl="Captcha"
+            ControlToValidate="Input"
+            ErrorMessage="You are challenged!"
+            ValidationGroup="Group1"
+        />
+                
+	</div>
+ 
+</com:TContent> 
+
+

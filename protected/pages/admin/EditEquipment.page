@@ -1,0 +1,121 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Équipement" 
+        	SaveButton.OnClick="Page.saveButtonClicked"
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListEquipment') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Modifier équipement
+    </div>
+    
+    <div class="main-content">
+    	<div class="form">
+            <com:TActivePanel ID="ArmorTypeDiv" CssClass="form-row" Visible="false">
+                <com:TActiveLabel ID="ArmorTypeLabel" Text="Type d'armure" ForControl="ArmorType" />
+                <com:TActiveDropDownList ID="ArmorType" DataTextField="name" DataValueField="id"/>
+            </com:TActivePanel>
+            <com:TActivePanel ID="WeaponTypeDiv" CssClass="form-row" Visible="false">
+                <com:TActiveLabel ID="WeaponTypeLabel" Text="Type d'arme" ForControl="WeaponType" />
+                <com:TActiveDropDownList ID="WeaponType" DataTextField="name" DataValueField="id"/>
+            </com:TActivePanel>
+            <div class="form-row">
+                <com:TActiveLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                <com:TActiveTextBox ID="Name"/>
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="DescLabel" Text="Description : " ForControl="Description" />
+                <com:TActiveTextBox ID="Description" ReadOnly="false" TextMode="MultiLine" Rows="10" />
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                <com:TActiveTextBox ID="Weight"/>
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="MagicalLabel" Text="Magique" ForControl="Magical" />
+                <com:TActiveCheckBox ID="Magical" OnCallback="magicalChanged"/>
+            </div>
+            
+            <div class="form-row">
+                <com:TActiveLabel ID="SellableLabel" Text="Vendable" ForControl="Sellable" />
+                <com:TActiveCheckBox ID="Sellable"/>
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="PurchasableLabel" Text="Achetable" ForControl="Purchasable" />
+                <com:TActiveCheckBox ID="Purchasable"/>
+            </div>
+        </div>
+
+        <com:TActivePanel ID="ArmorDiv" CssClass="form" GroupingText="Attribut d'armure" Visible="false">
+            <div class="form-row">
+                <com:TActiveLabel ID="acBonusLabel" Text="Bonus CA " ForControl="AcBonus" />
+                <com:TActiveTextBox ID="AcBonus"/>
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="ArmorCheckPenaltyLabel" Text="Malus sur les compétences " ForControl="ArmorCheckPenalty" />
+                <com:TActiveTextBox ID="ArmorCheckPenalty"/>
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="ArcaneSpellFailureLabel" Text="% d'échec de sort d'arcane" ForControl="ArcaneSpellFailure" />
+                <com:TActiveTextBox ID="ArcaneSpellFailure"/>
+                <com:TLiteral Text="%"/>
+                <com:TCompareValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="ArcaneSpellFailure"
+                    ValueToCompare="100"
+                    DataType="Integer"
+                    Operator="LessThanEqual"
+                    Text="You must enter an integer between 0 and 100." 
+                    Display="Dynamic"/>
+                <com:TCompareValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="ArcaneSpellFailure"
+                    ValueToCompare="0"
+                    DataType="Integer"
+                    Operator="GreaterThanEqual"
+                    Text="You must enter an integer between 0 and 100."
+                    Display="Dynamic" />
+            </div> 
+            <com:TActivePanel ID="AcMagicalBonusDiv" CssClass="form-row">
+                <com:TActiveLabel ID="AcMagicalBonusLabel" Text="Bonus magique CA " ForControl="AcMagicalBonus" />
+                <com:TActiveTextBox ID="AcMagicalBonus"/>
+            </com:TActivePanel>  
+        </com:TActivePanel>
+
+        <com:TActivePanel ID="WeaponDiv" CssClass="form" GroupingText="Attribut d'arme" Visible="false">
+            <div class="form-row">
+                <com:TActiveLabel ID="BaseDamageLabel" Text="Dégât de base : " ForControl="BaseDamage" />
+                <com:TActiveTextBox ID="BaseDamage" />
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel ID="AdditionalDamageLabel" Text="Dégât additionnel : " ForControl="AdditionalDamage" />
+                <com:TActiveTextBox ID="AdditionalDamage" />
+            </div>
+            <div class="form-row">
+                <com:TActiveLabel Text="Type de dégât additionel: " ForControl="AdditionalDamageTypeList" />
+                <com:TActiveDropDownList ID="AdditionalDamageTypeList" DataTextField="name" DataValueField="id"/> 
+            </div>
+            <com:TActivePanel ID="WeaponMagicalBonusDiv" CssClass="form-row">
+                <com:TActiveLabel ID="WeaponMagicalBonusLabel" Text="Bonus magique arme " ForControl="WeaponMagicalBonus" />
+                <com:TActiveTextBox ID="WeaponMagicalBonus"/>
+            </com:TActivePanel>
+        </com:TActivePanel>
+    
+    </div>
+
+    <com:TJavascriptLogger />
+    
+</com:TContent>

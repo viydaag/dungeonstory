@@ -1,0 +1,116 @@
+<%@ Title="Administration des comptes utilisateurs" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+ <!--
+<%% $array = UserRecord::finder()->with_role()->findAll(); 
+	print_r($array);
+    %>
+    -->
+    <div class="main-header">
+		Liste des joueurs
+    </div>
+    
+    <div class="main-content">
+    
+        <com:TDataGrid
+            CellPadding="2"
+            ID="UserGrid"
+            DataKeyField="id"
+            AutoGenerateColumns="false"
+            HeaderStyle.BackColor="black"
+            HeaderStyle.ForeColor="white"
+            ItemStyle.BackColor="white"
+            AlternatingItemStyle.BackColor="white"
+            EditItemStyle.BackColor="lightyellow"
+            OnItemCreated="itemCreated"
+            OnEditCommand="editItem"
+            OnUpdateCommand="saveItem"
+            OnCancelCommand="cancelItem"
+            OnItemCommand="resetPassword"
+            AllowPaging="true"
+            AllowCustomPaging="true"
+            OnPageIndexChanged="changePage"
+            OnPagerCreated="pagerCreated"
+            PageSize="10"
+            PagerStyle.Mode="Numeric"
+            >
+         
+            <com:TBoundColumn
+                ID="PseudoColumn"
+                HeaderText="Pseudo"
+                HeaderStyle.Width="100px"
+                DataField="pseudo"
+                ReadOnly="true"
+            />
+            
+            <com:TBoundColumn
+                ID="PasswordColumn"
+                HeaderText="Mot de passe"
+                HeaderStyle.Width="100px"
+                DataField="password"
+                ReadOnly="true"
+            />
+            
+            <com:TBoundColumn
+                ID="NomColumn"
+                HeaderText="Nom"
+                HeaderStyle.Width="100px"
+                DataField="nom"
+            />
+            
+            <com:TDropDownListColumn 
+                ID="RoleColumn"
+                HeaderText="Role"
+                DataTextField="role.nom"
+                DataValueField="roleId"
+                ListTextField="nom"
+                ListValueField="id"
+                ListDataSource="<%= $this->getRoleDataSource() %>"
+            />
+        
+            <com:TDropDownListColumn 
+                ID="StatutColumn"
+                HeaderText="Statut"
+                DataTextField="statut" >
+                    <com:TListItem Value="0" Text="En Attente" />
+                    <com:TListItem Value="1" Text="Activé" />
+                    <com:TListItem Value="2" Text="Désactivé" />
+            </com:TDropDownListColumn>
+        
+            <com:TEditCommandColumn
+                ID="EditColumn"
+                HeaderText=""
+                EditText="Modifier"
+                UpdateText="Enregistrer"
+                CancelText="Annuler"
+                ButtonType="PushButton"
+                ItemStyle.HorizontalAlign="Center"
+                ItemStyle.Font.Italic="false"
+            />
+            
+            <com:TButtonColumn
+                ID="ResetPasswordColumn"
+                HeaderText=""
+                Text="Réinitialiser mot de passe"
+                ButtonType="PushButton"
+                CommandName="resetPassword" 
+            />
+        </com:TDataGrid>
+        
+	</div>
+
+</com:TContent>

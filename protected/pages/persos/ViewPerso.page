@@ -1,0 +1,250 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Personnage</h2>
+        <com:TLinkButton
+        	ID="LevelUp"
+            Text="Monter de niveau"
+            OnClick="goToLevelUp"
+            Visible="<%= $this->canLevelUp() %>"
+        />
+        <com:THyperlink
+        	ID="EditImage"
+            Text="Modifier l'image"
+            NavigateUrl="<%= $this->Service->constructUrl('persos.EditPerso', array('persoId'=>$this->User->Perso->id, 'edit'=>'image')) %>"
+            Visible="<%= $this->User->hasPerso() && $this->User->Perso->id == $this->Perso->id %>"
+            Target="_parent"
+        />
+        <com:THyperlink
+        	ID="EditDetails"
+            Text="Modifier les d&eacute;tails"
+            NavigateUrl="<%= $this->Service->constructUrl('persos.EditPerso', array('persoId'=>$this->User->Perso->id, 'edit'=>'details')) %>"
+            Visible="<%= $this->User->hasPerso() && $this->User->Perso->id == $this->Perso->id %>"
+            Target="_parent"
+        />
+        
+        <com:THyperlink
+        	ID="InfoNewPerso"
+            Text="InfoNewPerso"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('info.InfoNewPerso') %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Personnage
+    </div>
+    
+    <div class="main-content">
+    
+    	<com:TTabPanel TabStyle.BackColor="black" ActiveTabStyle.BackColor="black">
+ 
+  			<com:TTabView 
+            	ID="InfoView" 
+                Caption="Information"
+                BorderWidth="0"
+                >
+                <table>
+                    <tr>
+                        <td rowspan="6"><com:TImage ImageUrl="<%= $this->Perso->image %>" /></td>
+                        <td>Nom : <%= $this->Perso->nom %></td>
+                        <td>Race : <%= $this->Perso->race->nom %></td>
+                    </tr>
+                    <tr>                
+                        <td>Sexe : <%= $this->Perso->SexeString %></td>
+                        <td>Classe(s) : <%= $this->Perso->ClasseNiveauString %></td>
+                    </tr>
+                    <tr>
+                        <td>Age : <%= $this->Perso->age %></td>
+                        <td>Exp&eacute;rience : <%= $this->Perso->experience %></td>
+                    </tr>
+                    <tr>
+                        <td>Taille (en cm) : <%= $this->Perso->taille %></td>
+                        <td>Niveau : <%= $this->Perso->niveau %></td>
+                    </tr>
+                    <tr>
+                        <td>Poids (en livre) : <%= $this->Perso->poids %></td>
+                        <td>Points de vie : <%= $this->Perso->vie %></td>
+                    </tr>
+                    <tr>
+                        <td>R&eacute;gion : <%= $this->Perso->region->nom %></td>
+                        <td>Alignement : <%= $this->Perso->alignement->nom %></td>
+                    </tr>               
+                </table>
+                <br />
+                <table>
+                    <tr>
+                        <td width="150">Apparence physique</td>
+                        <td><com:DSLiteral Text="<%= $this->Perso->apparence %>" HLengh="70" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Personnalit&eacute;</td>
+                        <td><com:DSLiteral Text="<%= $this->Perso->personnalite %>" HLengh="70" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Histoire</td>
+                        <td><com:DSLiteral Text="<%= $this->Perso->histoire %>" HLengh="70" /> </td>
+                    </tr>
+                </table>
+                <br />
+                <table>
+                    <tr>
+                        <td>Attribut</td>
+                        <td>Score initial</td>
+                        <td>Modificateur de race</td>
+                        <td>Score total</td>
+                    </tr>
+                    <tr>
+                        <td>Force </td>
+                        <td><%= $this->Perso->force %></td>
+                        <td><%= $this->Perso->race->modifForce %></td>
+                        <td><%= $this->Perso->TotalForce %></td>
+                    </tr>
+                    <tr>                
+                        <td>Dext&eacute;rit&eacute; </td>
+                        <td><%= $this->Perso->dexterite %></td>
+                        <td><%= $this->Perso->race->modifDexterite %></td>
+                        <td><%= $this->Perso->TotalDexterite %></td>
+                    </tr>
+                    <tr>
+                        <td>Constitution </td>
+                        <td><%= $this->Perso->constitution %></td>
+                        <td><%= $this->Perso->race->modifConstitution %></td>
+                        <td><%= $this->Perso->TotalConstitution %></td>
+                    </tr>
+                    <tr>
+                        <td>Intelligence </td>
+                        <td><%= $this->Perso->intelligence %></td>
+                        <td><%= $this->Perso->race->modifIntelligence %></td>
+                        <td><%= $this->Perso->TotalIntelligence %></td>
+                    </tr>
+                    <tr>
+                        <td>Sagesse </td>
+                        <td><%= $this->Perso->sagesse %></td>
+                        <td><%= $this->Perso->race->modifSagesse %></td>
+                        <td><%= $this->Perso->TotalSagesse %></td>
+                    </tr>
+                    <tr>
+                        <td>Charisme </td>
+                        <td><%= $this->Perso->charisme %></td>
+                        <td><%= $this->Perso->race->modifCharisme %></td>
+                        <td><%= $this->Perso->TotalCharisme %></td>
+                    </tr>
+                </table>
+                
+                <br />
+                <com:TControl Visible="<%= $this->Perso->isInAventure() %>">
+                <%= $this->Perso->nom %> fait partie de l'aventure :
+                <com:THyperLink
+                    ID="AventureLink"
+                    Text="<%= $this->Perso->aventure->nom %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('aventures.ListMessage', array('aventureId'=>$this->Perso->aventureId)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->Perso->isInAventure() %>"
+                    Enabled="<%= $this->User->Perso->id == $this->Perso->id %>"
+                />
+                </com:TControl>
+                
+        	</com:TTabView>
+            
+            <com:TTabView 
+            	ID="SkillView" 
+                Caption="Compétences"
+                BorderWidth="0"
+            >
+            	
+                <com:TDataGrid
+                	ID="SkillTable"
+                	DataKeyField="skillId"
+                    AutoGenerateColumns="false"
+                    HeaderStyle.BackColor="white"
+                    HeaderStyle.ForeColor="black"
+                    GridLines="Both"
+                    CellSpacing="0"
+                    CellPadding="2"
+                >                              
+                	<com:TBoundColumn
+                        HeaderText="Nom de la compétence"
+                        DataField="skill.name"
+                	/>                    
+                
+                    <com:TBoundColumn
+                        HeaderText="Rang"
+                        DataField="rank"
+						ItemStyle.HorizontalAlign="Center"
+                	/>                    
+                </com:TDataGrid>
+                
+            </com:TTabView>
+            
+            <com:TTabView 
+            	ID="FeatView" 
+                Caption="Charactéristiques"
+                BorderWidth="0"
+                >
+                
+                <com:TDataGrid
+                	ID="FeatTable"
+                	DataKeyField="featId"
+                    AutoGenerateColumns="false"
+                    HeaderStyle.BackColor="white"
+                    HeaderStyle.ForeColor="black"
+                    GridLines="Both"
+                    CellSpacing="0"
+                    CellPadding="2"
+                >                              
+                	<com:TBoundColumn
+                        HeaderText="Nom de la charactéristique"
+                        DataField="feat.name"
+                	/>                    
+                                   
+                </com:TDataGrid>
+            
+            </com:TTabView>
+            
+            <com:TTabView 
+            	ID="InventoryView" 
+                Caption="Inventaire"
+                BorderWidth="0"
+                >
+                
+                <com:TDataGrid
+                	ID="EquipmentTable"
+                	DataKeyField="equipmentId"
+                    AutoGenerateColumns="false"
+                    HeaderStyle.BackColor="white"
+                    HeaderStyle.ForeColor="black"
+                    GridLines="Both"
+                    CellSpacing="0"
+                    CellPadding="2"
+                >                              
+                	<com:TBoundColumn
+                        HeaderText="Nom de l'item"
+                        DataField="equipment.name"
+                	/> 
+                    <com:TBoundColumn
+                        HeaderText="Quantité"
+                        DataField="quantity"
+                	/>                   
+                                   
+                </com:TDataGrid>
+            
+            </com:TTabView>
+            
+            
+            
+        </com:TTabPanel>
+        
+    </div>
+ 
+</com:TContent>

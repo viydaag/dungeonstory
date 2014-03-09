@@ -1,0 +1,55 @@
+<%@ Title="Nouvelle Discussion" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Aventure</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="createButtonClicked"
+        />
+        <com:THyperlink
+        	ID="Cancel"
+            Text="Annuler"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('forum.ListDiscussion', array('forumCategorieId'=>$this->Categorie->id)) %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+ 
+	<div class="main-header">
+		Nouvelle Discussion
+    </div>
+    
+    <div class="main-content">
+ 
+ 		<table>
+        	<tr>
+            	<td>Sujet:</td>
+        		<td>
+                    <com:TRequiredFieldValidator
+                        ControlToValidate="Sujet"
+                        ErrorMessage="Veuillez indiquer un sujet."
+                        Display="Dynamic" />
+                    <com:TTextBox ID="Sujet" Columns="90" />
+                </td>
+            </tr>
+            <tr>
+            	<td>Description:</td>
+                <td><com:TTextBox ID="Description" TextMode="MultiLine" Rows="6" Columns="70"/></td>
+			</tr>
+		</table> 
+        
+	</div>
+ 
+</com:TContent>

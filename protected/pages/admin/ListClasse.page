@@ -1,0 +1,48 @@
+<%@ Title="Administration des classes" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Classe</h2>
+        <com:THyperLink
+        	ID="NewClasse"
+            Text="Cr&eacute;er"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewClasse') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Classes
+    </div>
+     
+	
+	<div class="main-content">     
+        <com:TRepeater ID="RepeaterClasse">
+            <prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->nom %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditClasse', array('classeId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+	</div>
+ 
+</com:TContent>

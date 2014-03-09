@@ -1,0 +1,64 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Message</h2>
+        <com:TControl Visible="<%= $this->canEdit() %>">
+            <com:TLinkButton 
+            	ID="ModifierMessageButton"
+                Text="Modifier"
+                OnClick="goToEditMessage"
+            />
+            <com:TLinkButton 
+            	ID="SupprimerMessageButton" 
+                Text="Supprimer"
+                OnClick="deleteMessage"
+                Attributes.onclick="javascript:if(!confirm('Etes vous sûr ?')) return false;" 
+            />
+		</com:TControl>
+        <com:TControl Visible="<%= $this->User->Profile->id == $this->Message->aventure->createurId && $this->Message->isXpGiven == false %>">
+            <com:TLinkButton
+                ID="AddXP"
+                Text="Donner de l'expérience"
+                OnClick="addXP"
+                Enabled="<%= $this->User->Profile->id != $this->Message->aventure->createurId %>"
+            />
+        </com:TControl>
+        <com:THyperlink
+        	ID="Return"
+            Text="Retour à l'aventure"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.ListMessage',array('aventureId'=>$this->Message->aventureId)) %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		<%= $this->Message->titre %>
+    </div>
+    
+    <div class="main-content">
+ 
+        <p>
+        Auteur:
+        <com:TLiteral Text="<%= $this->Message->perso->nom %>" /><br/>
+        Date de création:
+        <com:TLiteral Text="<%= date($this->Message->dateCreation) %>" />
+        </p>
+         
+        <p>
+        Contenu : <br/>
+        <com:DSLiteral Text="<%= $this->Message->texte %>" HLengh="70" />
+        </p>
+        
+	</div>
+ 
+</com:TContent>

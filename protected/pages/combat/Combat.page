@@ -1,0 +1,105 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Combat</h2>
+        <com:TActiveLinkButton
+            ID="BeginButton"
+            Text="Commencer"
+            OnCallback="beginCombat"
+        />
+        <com:TActiveLinkButton
+            ID="AbortButton"
+            Text="Fuir"
+            OnClick="fleeCombat"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Combat
+    </div>
+   
+    
+    <div class="main-content">
+         <!--
+        <a href="http://localhost/dungeonstory/music/01-Attacked-By-Assassins.mp3">01 - Attacked-By-Assassins</a>
+        <script type="text/javascript">
+            var YWPParams = 
+            {
+                autoplay: true,
+                autoadvance: false
+            };
+        </script>
+        <script type="text/javascript" src="http://webplayer.yahooapis.com/player.js"></script> 
+       -->
+        <audio controls="controls" autoplay="autoplay" loop="loop" preload="auto">
+            <source src="../../../music/03 - Bandit-Melee.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    
+		<table border = "1">
+            <tr>
+                <td colspan="2"><com:TLiteral Text="Round : "/><com:TActiveLabel ID="RoundNumberValue" /></td>
+            </tr>
+        	<tr>            	
+            	<td><com:TLiteral Text="Attaque : " /><com:TActiveLabel ID="CharacterAttackNumberValue" /></td>
+                <td><com:TLiteral Text="Attaque : " /><com:TActiveLabel ID="MonsterAttackNumberValue" /></td>
+            </tr>   
+        	<tr>
+            	<td><com:TActiveImage ImageUrl="<%= $this->User->Perso->image %>" /></td>
+                <td><com:TActiveImage ID="MonsterImage" /></td>
+            </tr>
+            <tr>
+            	<td>
+                    <com:TActiveButton ID="AttackButton" OnCallback="attackEnemy" Text="Attaquer" >
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->AttackButton->ClientId%>').disabled = 'disabled';
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>
+                            $('<%=$this->AttackButton->ClientId%>').disabled = '';
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveButton>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+            	<td><com:TActiveTextBox ID="CharacterLifePoints" /></td>
+            	<td><com:TActiveTextBox ID="MonsterLifePoints" /></td>
+            </tr>
+            <tr>
+            	<td>
+                    <com:TActivePanel ID="CharacterLifeBar">
+                        <com:TActiveLabel ID="CharacterRemainingLifeBar" />
+                    </com:TActivePanel>
+                </td>
+                <td>
+                    <com:TActivePanel ID="MonsterLifeBar">
+                        <com:TActiveLabel ID="MonsterRemainingLifeBar" />
+                    </com:TActivePanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="messages" class="messages">
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <com:TJavascriptLogger />
+
+        
+	</div>
+    
+ 
+</com:TContent>

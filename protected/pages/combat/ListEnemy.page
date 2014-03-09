@@ -1,0 +1,54 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Combat
+    </div>
+    
+    <div class="main-content">
+
+		<div class="main-content">
+        	<com:TDataGrid
+                    ID="EnemyTable"
+                    DataKeyField="id"
+                    AutoGenerateColumns="false"
+                    HeaderStyle.BackColor="white"
+                    HeaderStyle.ForeColor="black"
+                    GridLines="Both"
+                    CellSpacing="0"
+                    CellPadding="2">
+                
+                <com:THyperLinkColumn
+                	ID="EnemyNameColumn"
+                    HeaderText="Ennemi"
+                    DataTextField="name"
+                    DataNavigateUrlField="id"
+                    DataNavigateUrlFormatString="#$this->Service->constructUrl('combat.Combat', array('monsterId'=>{0}))"                
+                    Target="_parent"
+                    ItemStyle.Width="75%"
+                />
+                
+                <com:TBoundColumn
+                	ID="CRColumn"
+                    HeaderText="Difficulté"
+                    DataField="challengeRating"
+                    ItemStyle.HorizontalAlign="Center"             
+                />
+            </com:TDataGrid>
+        </div>
+               
+	</div>
+ 
+</com:TContent>

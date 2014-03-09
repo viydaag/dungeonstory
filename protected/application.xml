@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<application id="dungeonstory" mode="Debug">
+  <!-- alias definitions and namespace usings-->
+  <paths>
+    <using namespace="System.Data.*" />
+    <using namespace="System.Data.ActiveRecord.*" />
+	<using namespace="System.Data.ActiveRecord.Scaffold.*" />
+    <using namespace="System.Security.*" />
+    <using namespace="System.Web.UI.ActiveControls.*" />
+	<using namespace="Application.Database.*" />
+	<using namespace="Application.Layouts.*" />
+	<using namespace="Application.Pages.*" />
+	<using namespace="Application.Portlets.*" />
+	<using namespace="Application.Common.*" />
+	<using namespace="Application.Common.LightWindow.*" />
+	<using namespace="Application.Images.*" />
+  </paths>
+
+  <!-- configurations for modules -->
+  <modules>
+	<module class="System.Data.TDataSourceConfig" id="db1">
+		<database ConnectionString="mysql:host=localhost;dbname=dungeonstory_dev" Username="root" Password="root" Charset="utf8"/>
+	</module>
+	<!--module id="globalization" class="System.I18N.TGlobalization" Charset="UTF-8" /-->
+	<module class="TActiveRecordConfig" EnableCache="true" ConnectionID="db1" />
+	<module class="System.Util.TParameterModule" ParameterFile="Application.Common.Settings" />
+	<module id="exception" class="Application.Common.DSErrorHandler" />
+	<module id="log" class="System.Util.TLogRouter">
+        <route class="TFileLogRoute" Categories="DSApplication" />
+		<route class="TEmailLogRoute" Categories="DSApplication" Levels="Fatal" Emails="fortier.jc@gmail.com" SentFrom="admin@dungeonstory.com"/>
+    </module>
+	<module id="request" class="THttpRequest" UrlManager="friendly-url" />
+	<module id="friendly-url" class="System.Web.TUrlMapping" EnableCustomUrl="true">
+		<url ServiceParameter="Home" pattern="home" />
+	
+		<url ServiceParameter="users.NewUser" pattern="user/new" />
+		<url ServiceParameter="users.ViewUser" pattern="user/{userId}" parameters.userId="\d+" />
+		<url ServiceParameter="users.EditUser" pattern="user/{userId}/edit" parameters.userId="\d+" />
+		
+		<url ServiceParameter="persos.NewPerso" pattern="perso/new" />
+		<url ServiceParameter="persos.ViewPerso" pattern="perso/{persoId}" parameters.persoId="\d+" />
+		<url ServiceParameter="persos.EditPerso" pattern="perso/{persoId}/edit" parameters.persoId="\d+" />
+		<url ServiceParameter="persos.LevelUp" pattern="perso/{persoId}/level" parameters.persoId="\d+" />
+		
+		<url ServiceParameter="admin.ListUser" pattern="user/all" />
+		<url ServiceParameter="admin.ListRace" pattern="race/all" />
+		<url ServiceParameter="admin.ListPerso" pattern="perso/all" />
+		<url ServiceParameter="admin.ListClasse" pattern="classe/all" />
+		<url ServiceParameter="admin.ListAlignement" pattern="alignement/all" />
+		<url ServiceParameter="admin.ListRegion" pattern="region/all" />
+		<url ServiceParameter="admin.ListImage" pattern="image/all" />
+		<url ServiceParameter="admin.ListSkill" pattern="skill/all" />
+		<url ServiceParameter="admin.ListEquipment" pattern="equipment/all" />
+		<url ServiceParameter="admin.NewRace" pattern="race/new" />
+		<url ServiceParameter="admin.NewClasse" pattern="classe/new" />
+		<url ServiceParameter="admin.NewAlignement" pattern="alignement/new" />
+		<url ServiceParameter="admin.NewRegion" pattern="region/new" />
+		<url ServiceParameter="admin.NewSkill" pattern="skill/new" />
+		<url ServiceParameter="admin.EditRace" pattern="race/{raceId}/edit" parameters.raceId="\d+" />
+		<url ServiceParameter="admin.EditClasse" pattern="classe/{classeId}/edit" parameters.classeId="\d+" />
+		<url ServiceParameter="admin.EditAlignement" pattern="alignement/{alignementId}/edit" parameters.alignementId="\d+" />
+		<url ServiceParameter="admin.EditRegion" pattern="region/{regionId}/edit" parameters.regionId="\d+" />
+		<url ServiceParameter="admin.EditSkill" pattern="skill/{skillId}/edit" parameters.skillId="\d+" />
+		<url ServiceParameter="admin.EditEquipment" pattern="equipment/{equipmentId}/edit" parameters.equipmentId="\d+" />
+		
+		<url ServiceParameter="aventures.ListAventure" pattern="aventure/all" />
+		<url ServiceParameter="aventures.NewAventure" pattern="aventure/new" />
+		<url ServiceParameter="aventures.ViewAventure" pattern="aventure/{aventureId}" parameters.aventureId="\d+" />
+		<url ServiceParameter="aventures.EditAventure" pattern="aventure/{aventureId}/edit" parameters.aventureId="\d+" />
+		<url ServiceParameter="aventures.ListMessage" pattern="aventure/{aventureId}/message/all" parameters.aventureId="\d+" />
+		<url ServiceParameter="aventures.NewMessage" pattern="aventure/{aventureId}/message/new" parameters.aventureId="\d+" />
+		<url ServiceParameter="aventures.ViewMessage" pattern="aventure/{aventureId}/message/{messageId}" parameters.aventureId="\d+" parameters.messageId="\d+" />
+		<url ServiceParameter="aventures.EditMessage" pattern="aventure/{aventureId}/message/{messageId}/edit" parameters.aventureId="\d+" parameters.messageId="\d+" />
+		
+		<url ServiceParameter="info.InfoNewPerso" pattern="info/newperso" />
+		
+		<url ServiceParameter="forum.ListCategorie" pattern="categorie/all" />
+		<url ServiceParameter="forum.ListDiscussion" pattern="categorie/{forumCategorieId}/discussion/all" parameters.forumCategorieId="\d+"/>
+		<url ServiceParameter="forum.NewDiscussion" pattern="categorie/{forumCategorieId}/discussion/new" parameters.forumCategorieId="\d+"/>
+		<url ServiceParameter="forum.ListForumMessage" pattern="categorie/{forumCategorieId}/discussion/{forumDiscussionId}/message/all" parameters.forumCategorieId="\d+" parameters.forumDiscussionId="\d+"/>
+		<url ServiceParameter="forum.NewForumMessage" pattern="categorie/{forumCategorieId}/discussion/{forumDiscussionId}/message/new" parameters.forumCategorieId="\d+" parameters.forumDiscussionId="\d+"/>
+		
+		<url ServiceParameter="market.ListShop" pattern="market/shop/all" />
+		<url ServiceParameter="market.Buy" pattern="market/shop/{shopId}/buy" parameters.shopId="\d+" />
+		<url ServiceParameter="market.Sell" pattern="market/shop/{shopId}/sell" parameters.shopId="\d+" />
+
+		<!--
+		<url ServiceParameter="market.Buy" pattern="market/buy" />
+		<url ServiceParameter="market.Sell" pattern="market/sell" />
+		-->
+		<url ServiceParameter="market.EquipmentInfo" pattern="market/equipment/{equipmentId}" parameters.equipmentId="\d+" />
+		
+		<url ServiceParameter="combat.ListEnemy" pattern="combat" />
+		<url ServiceParameter="combat.Combat" pattern="combat/monster/{monsterId}" parameters.monsterId="\d+" />
+	
+	</module>
+
+  </modules>
+
+
+  <!-- configuration for available services -->
+  <services>
+    <service id="page" class="TPageService" DefaultPage="info.ListNouvelle">
+		<modules>
+			<module id="auth" class="System.Security.TAuthManager" UserManager="users" LoginPage="Home" />
+			<module id="users" class="System.Security.TDbUserManager" UserClass="DSUser" />
+		</modules>
+		<!-- initial properties set for all pages -->
+		<pages MasterClass="MainLayout" Theme="magik"/>
+    </service>
+    <service id="wsat" class="System.Wsat.TWsatService" Password="admin" />
+  </services>
+
+  <!-- application parameters
+  <parameters>
+    <parameter id="param1" value="value1" />
+    <parameter id="param2" value="value2" />
+  </parameters>
+  -->
+</application>

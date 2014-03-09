@@ -1,0 +1,47 @@
+<%@ Title="Administration des types d'arme" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Type d'arme</h2>
+        <com:THyperLink
+        	ID="NewWeaponType"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewWeaponType') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Types d'arme
+    </div>
+    
+    <div class="main-content">     
+        <com:TRepeater ID="RepeaterWeaponType">
+			<prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->name %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditWeaponType', array('weaponTypeId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+    </div>
+ 
+</com:TContent>

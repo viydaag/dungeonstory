@@ -1,0 +1,47 @@
+<%@ Title="Administration des compétences" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Compétence</h2>
+        <com:THyperLink
+        	ID="NewSkill"
+            Text="Cr&eacute;er"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewSkill') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Compétences
+    </div>
+    
+    <div class="main-content">     
+        <com:TRepeater ID="RepeaterSkill">
+			<prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->name %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditSkill', array('skillId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+    </div>
+ 
+</com:TContent>

@@ -1,0 +1,77 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Personnage</h2>
+        <com:TLinkButton
+        	ID="SaveImage"
+            Text="Enregistrer"
+            OnClick="saveImage"
+            Visible="<%= $this->User->hasPerso() && $this->User->Perso->id == $this->Perso->id && $this->ImageView->Active %>"
+        />
+        <com:TLinkButton
+        	ID="SaveDetails"
+            Text="Enregistrer"
+            OnClick="saveDetails"
+            Visible="<%= $this->User->hasPerso() && $this->User->Perso->id == $this->Perso->id && $this->DetailsView->Active %>"
+        />
+        <com:THyperLink
+        	ID="Cancel"
+            Text="Annuler"
+            NavigateUrl="<%= $this->Service->constructUrl('persos.ViewPerso', array('persoId'=>$this->User->Perso->id)) %>"
+            Visible="<%= $this->User->hasPerso() && $this->User->Perso->id == $this->Perso->id %>"
+            Target="_parent"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Personnage
+    </div>
+    
+    <com:TMultiView ID="PersoMultiView">
+    
+    	<com:TView ID="DetailsView">
+    
+        	<div class="main-content">
+
+                <div class="form">
+                    <div class="form-row">
+                        <com:TLabel Text="Alignement" ForControl="Alignement" />
+                        <com:TDropDownList ID="Alignement" DataTextField="nom" DataValueField="id" />
+                    </div>
+                    <div class="form-row">
+                        <com:TLabel Text="Apparence physique" ForControl="ApparenceTextBox" />
+                        <com:TTextBox ID="ApparenceTextBox"  TextMode="MultiLine" Rows="6"  Columns="50"  />
+                    </div>
+                    <div class="form-row">
+                        <com:TLabel Text="Personnalité" ForControl="PersonnaliteTextBox" />
+                        <com:TTextBox ID="PersonnaliteTextBox" TextMode="MultiLine" Rows="6" Columns="50" />
+                    </div>
+                    <div class="form-row">
+                        <com:TLabel Text="Histoire" ForControl="BackgroundTextBox" />
+                        <com:TTextBox ID="BackgroundTextBox" TextMode="MultiLine" Rows="6" Columns="50" />
+                    </div>
+                </div>
+                
+            </div>
+            
+        </com:TView>
+        
+        <com:TView ID="ImageView">
+            <div class="main-content">
+                <com:Application.Portlets.ImagePortlet ID="ImagePortlet" WithRadioButton="true" />
+            </div>
+		</com:TView>
+        
+	</com:TMultiView>
+    
+</com:TContent>

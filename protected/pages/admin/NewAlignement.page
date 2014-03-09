@@ -1,0 +1,42 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+            Title="Alignement" 
+            SaveButton.OnClick="Page.saveButtonClicked" 
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListAlignement') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvel alignement
+    </div>
+    
+    <div class="main-content">
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Nom" />
+                <com:TTextBox ID="Nom" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ShortDescLabel" Text="Decription Courte : " ForControl="DescriptionCourte" />
+                <com:TTextBox ID="DescriptionCourte" Columns="60" TextMode="MultiLine" Rows="2"/>
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="Description" />
+                <com:TTextBox ID="Description" TextMode="MultiLine" Rows="10" Columns="60" />
+            </div>
+        </div>  
+	</div>
+ 
+</com:TContent>

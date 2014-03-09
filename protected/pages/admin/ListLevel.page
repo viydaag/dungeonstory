@@ -1,0 +1,101 @@
+<%@ Title="Administration des niveaux" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Niveau</h2>
+      
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Niveaux
+    </div>
+    
+    <div class="main-content">
+        <com:TDataGrid
+            CellPadding="2"
+            ID="LevelGrid"
+            DataKeyField="niveau"
+            AutoGenerateColumns="false"
+            HeaderStyle.BackColor="black"
+            HeaderStyle.ForeColor="white"
+            ItemStyle.BackColor="white"
+            AlternatingItemStyle.BackColor="white"
+            EditItemStyle.BackColor="lightyellow"
+            OnItemCreated="itemCreated"
+            OnEditCommand="editItem"
+            OnUpdateCommand="saveItem"
+            OnCancelCommand="cancelItem"
+            >
+         
+            <com:TBoundColumn
+                ID="LevelColumn"
+                HeaderText="Niveau"
+                HeaderStyle.Width="100px"
+                DataField="niveau"
+                ReadOnly="true"
+            />
+            
+            <com:TBoundColumn
+                ID="XPColumn"
+                HeaderText="Expérience"
+                HeaderStyle.Width="100px"
+                DataField="maxExperience"
+            />
+            
+            <com:TCheckBoxColumn
+                ID="BonusFeatColumn"
+                HeaderText="Caractéristique bonus"
+                HeaderStyle.Width="100px"
+                DataField="bonusFeat"
+            />
+            
+            <com:TCheckBoxColumn
+                ID="BonusAbilityColumn"
+                HeaderText="Attribut bonus"
+                HeaderStyle.Width="100px"
+                DataField="bonusAbilityScore"
+            />
+        
+            <com:TBoundColumn
+                ID="MaxClassSkillRanksColumn"
+                HeaderText="Maximum de rangs de compétence de classe"
+                HeaderStyle.Width="100px"
+                DataField="maxClassSkillRanks"
+            />
+            
+            <com:TBoundColumn
+                ID="MaxCrossClassSkillRanksColumn"
+                HeaderText="Maximum de rangs de compétence hors classe"
+                HeaderStyle.Width="100px"
+                DataField="maxCrossClassSkillRanks"
+            />
+        
+            <com:TEditCommandColumn
+                ID="EditColumn"
+                HeaderText=""
+                EditText="Modifier"
+                UpdateText="Enregistrer"
+                CancelText="Annuler"
+                ButtonType="PushButton"
+                ItemStyle.HorizontalAlign="Center"
+            />
+
+        </com:TDataGrid>
+        
+        <com:TButton ID="AddItem" Text="Ajouter" OnClick="addItem" />
+	</div>
+    
+</com:TContent>

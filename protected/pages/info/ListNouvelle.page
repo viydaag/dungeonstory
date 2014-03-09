@@ -1,0 +1,58 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Nouvelles</h2>
+        <com:THyperLink
+        	ID="NewNouvelle"
+            Text="Cr&eacute;er"
+            NavigateUrl="<%= $this->Service->constructUrl('info.NewNouvelle') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvelles
+    </div>
+    
+    <div class="main-content">
+    
+    	<com:TPager ControlToPaginate="RepeaterNouvelle" OnPageIndexChanged="pageChanged" />
+    
+        <com:TRepeater ID="RepeaterNouvelle"
+            AllowPaging="true"
+            AllowCustomPaging="true"
+            PageSize="5">
+            <prop:ItemTemplate>
+                <div class="main-header">
+                    <com:THyperLink
+                        Text="<%# $this->Data->titre %>"
+                        NavigateUrl="<%= $this->Service->constructUrl('info.EditNouvelle', array('nouvelleId'=>$this->Data->id)) %>"
+                        Target="_parent"
+                        Visible="<%= $this->User->isAdmin %>"
+                    />
+                    <com:TLiteral Text="<%# $this->Data->titre %>" Visible="<%= !$this->User->isAdmin %>"/>
+                </div>
+                
+                <div class="main-content">
+                    <com:DSLiteral Text="<%# $this->Data->description %>" HLengh="150" />
+                    <com:TLiteral Text="Publi&eacute; le <%# $this->Data->datePublication %>" />
+                </div>
+            </prop:ItemTemplate>
+        </com:TRepeater>
+        
+    </div>
+    
+</com:TContent>

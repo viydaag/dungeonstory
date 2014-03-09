@@ -1,0 +1,279 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Information : Création Personnage
+    </div>
+
+	<div class="main-content">
+    	<h2>Personnage</h2>
+        <p>Votre personnage vivra de nombreuses aventures dans les royaumes oubliés. En tant que joueur, vous créez votre personnage suivant les règles énoncées ci-bas. Vous pouvez décidez d'incarner un barbare sauvage des palines du nord, le voleur le plus agile qui soit, un archer meurtirer ou un puissant mage maitrisants les arcanes. À mesure que votre personnage vit des aventures, il gagne de l'expérience et devient plus puissant.</p>
+      <h2>Création du personnage</h2>
+        <p>Pour compléter la créatioin de votre personnage vous devez :</p>
+        <ol>
+          <li>Choisir votre race</li>
+          <li>Choisir votre classe</li>
+          <li>Déterminer vos scores d'attributs</li>
+          <li>Déterminer les détails de la description du personnage</li>
+        </ol>
+      <h2>1.	Choisir votre race</h2>
+      <p>Votre personnage peut incarner une des races suivantes qui peuplent Faerune :</p>
+      <table width="528" border="1">
+      	<tr>
+          <th width="158" scope="col">Race</th>
+          <th width="350" scope="col">Description</th>
+        </tr>
+		<com:TRepeater ID="RaceRepeater" EnableViewState="true">        
+			<prop:ItemTemplate>
+				<tr>
+					<td align="left"><%# $this->Data->nom %></td>
+          			<td align="left"><%# $this->Data->descriptionCourte %></td>
+                </tr>
+    		</prop:ItemTemplate>
+		</com:TRepeater>
+      </table>    
+    	
+      <p>Pour plus d'informations sur les races, naviguez sur la page des races.</p>
+      <h2>2.	Choisir votre classe</h2>
+      <p>Vous pouvez choisir l'une des classes de départ suivantes pour votre personnage :</p>
+      
+	<com:TBulletedList 
+    	ID="ClasseList"
+        DataTextField="nom"
+        DataValueField="id"
+	/>   
+      <p>Lors de vos prochains niveaux, vous pourrez choisir une autre classe et ainsi multiclasser votre personnage. Pour plus d'informations sur les classes, naviguez sur la page des classes.</p>
+      <h2>3.	Déterminer vos scores d'attributs</h2>
+      <p>Votre personnage a six attributs : Force (F), Dextérité (D), Constitution (Co), Intelligence (I), Sagesse (S) et Charisme (Ch). Chaque attribut au-dessus de la moyenne donne à votre personnage un avantage sur certaines actions et les attributs en-dessous de la moyenne lui donne un désavantage. Lors de la création de votre personnage, vous devrez assigner 20 points aux attributs de votre personnage. Chaque attribut a une valeur initiale de 10 ce qui correspond à une valeur neutre sans bonus ni malus. Les bonus/malus sont expliqués dans la table suivante :</p>
+      <table width="284" border="1">
+        <tr>
+          <th width="125" scope="col">Score</th>
+          <th width="143" scope="col">Bonus/Malus</th>
+        </tr>
+        <tr>
+          <td><div align="center">1</div></td>
+          <td><div align="center">-5</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">2-3</div></td>
+          <td><div align="center">-4</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">4-5</div></td>
+          <td><div align="center">-3</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">6-7</div></td>
+          <td><div align="center">-2</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">8-9</div></td>
+          <td><div align="center">-1</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">10-11</div></td>
+          <td><div align="center">0</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">12-13</div></td>
+          <td><div align="center">+1</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">14-15</div></td>
+          <td><div align="center">+2</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">16-17</div></td>
+          <td><div align="center">+3</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">18-19</div></td>
+          <td><div align="center">+4</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">20-21</div></td>
+          <td><div align="center">+5</div></td>
+        </tr>
+        <tr>
+          <td><div align="center">...</div></td>
+          <td><div align="center">...</div></td>
+        </tr>
+      </table>
+      <p>Pour des raisons de logique, votre personnage ne peut avoir un score en bas de 3. Par exemple : un personnage ayant une intelligence de 2 aurait l'intelligence d'un écureuil et le personnage ayant une force de 2 aurait de la difficulté à lever une épée.</p>
+      <h3>Force</h3>
+      <p>La force mesure les muscles et la puissance physique de votre personnage. Cet attribut est important pour les guerriers, paladins, barbares, rôdeurs et moines pour son utilité au combat. La force détermine également le poids que votre personnage peut supporter.</p>
+      <p>Le bonus/malus de force s'applique :</p>
+      <ul>
+        <li>attaques rapprochées</li>
+        <li>dégats (utilisant une arme de combat rapproché ou de jet)</li>
+        <li>grimper, sauter, nager</li>
+        <li>autres (pouvoir défoncer une porte par exemple)</li>
+      </ul>
+      <h3>Dextérité</h3>
+      <p>La dextérité mesure la coordination des mouvements, l'agilité, les réflexes et l'équilibre. Elle est particulièrement utile pour le voleur mais peut être aussi utile pour les personnages portant de l'armure légère et moyenne (barbare, rôdeur) ou aucune armure (moine, mage, sorcier). Ou tout simplement si vous voulez un bon archer!</p>
+      <p>Le bonus/malus de dextérité s'applique :</p>
+      <ul>
+        <li>attaques de distance</li>
+        <li>classe d'armure</li>
+        <li>jet de sauvegarde de réflexe (échapper à une boule de feu par exemple)</li>
+        <li>équilibre, crochetage de serrure, mouvement silencieux, usage de corde, cacher, conduire une monture</li>
+      </ul>
+      <h3>Constitution</h3>
+      <p>La constitution représente la santé et l'endurance du personnage. Un bonus de constitution augmente les points de vie du personnage. Pour cette raison, cet attribut est important pour toutes les classes.</p>
+      <p>Le bonus/malus de constitution s'applique :</p>
+      <ul>
+        <li>jet de sauvegarde d'endurance (résistance au poison par exemple)</li>
+        <li>concentration (utile pour les lanceurs de sorts)</li>
+      </ul>
+      <h3>Intelligence</h3>
+      <p>L'intelligence détermine comment votre personnage apprend et raisonne. Cet attribut est très important pour le mage car il détermine le nombre de sorts appris par jour, la difficulté de résister à ses sorts et la puissance de ses sorts. L'intelligence est aussi importante pour tout personnage volant avoir un grand éventail de talents. Un mage gagne des sorts supplémentaires basé sur son score d'intelligence. Le score minimum d'intelligence pour lancer un sort est 10 + niveau du sort.</p>
+      <p>Le bonus/malus d'intelligence s'applique :</p>
+      <ul>
+        <li>au  nombre de langages connus initialement par votre personnage</li>
+        <li>au  nombre de talents gagnés à chaque niveau</li>
+        <li>estimation, artisanat, désamorcer des pièges, déchiffrer les scripts, falsification, connaissance, recherche, création de sort</li>
+      </ul>
+      <h3>Sagesse</h3>
+      <p>La sagesse décrit la volonté, le sens commun, la perception et l'intuition du personnage. La sagesse est l'attribut le plus important pour les clercs et les druides. Elle est aussi importante pour les paladins et les rôdeur ou toute autre classe qui peut lancer des sorts divins. Ces classes gagnes des sorts supplémentaires basé sur leur score de sagesse. Le score minimum de sagesse pour lancer un sort est 10 + niveau du sort.</p>
+      <p>Le bonus/malus de sagesse s'applique :</p>
+      <ul>
+        <li>jet de sauvegarde de volonté (contre les sorts altérant l'esprit par exemple)</li>
+        <li>guérison, écoute, profession, détection, survie</li>
+      </ul>
+      <h3>Charisme</h3>
+      <p>Le charisme mesure la force de la personnalité, la persuasion, le magnétisme, l'abilité à mener les autres et l'attraction physique. Cet attribut représente la personnalité et non ce que les autres pensent du personnage. Le charisme est important pour les paladins, les sorciers et les bardes. Il est aussi important pour les clercs parce qu'il affecte leur capacité à repousser les mort-vivants.</p>
+      <p>Le bonus/malus de charisme s'applique :</p>
+      <ul>
+        <li>jet pour influencer les autres</li>
+        <li>bluff, diplomacie, déguisement, soutirer de l'information, apprivoiser un animal, intimidation, jouer la comédie, utiliser des objets magiques</li>
+        <li>repousser les mort-vivants</li>
+      </ul>
+      <p>&nbsp;</p>
+      <h2>4.	Déterminer les détails de la description du personnage</h2>
+      <h3>Nom</h3>
+      <p>Votre personnage vit dans l'univers des royaumes oubliés et doit avoir un nom approprié à cet univers. Le nom de votre personnage peut dépendre également de sa race. Par exemple, les noms nains appartiennent à leur clan et peuvent être utilisés à travers les générations tandis que les noms orcs sont basés sur la prononciation et l'effet qu'il a sur les autres.</p>
+      <h3>Sexe</h3>
+      <p>Votre personnage peut être de sexe masculin ou féminin. Il n'y a pas de différence aux niveau des talents, attributs et dons selon le sexe. Une femme peut être aussi puissante qu'un homme dans un même domaine. On compte seulement une différence au niveau de l'apparence physique où le charisme ne joue aucun rôle.</p>
+      <h3>Age</h3>
+      <p>L'age de votre personnage doit se situer entre l'age adulte minimum et maximum de la race choisie additionné d'un modificateur. La table suivante décrit chaque plage d'age pour chaque race ainsi que le modifiacteur appliqué.</p>
+      <table width="528" border="1">
+      	<tr>
+          <th width="132" scope="col">Race</th>
+          <th width="132" scope="col">Age minimum</th>
+          <th width="132" scope="col">Age maximum</th>
+          <th width="132" scope="col">Modificateur</th>
+        </tr>
+      	<com:TRepeater ID="RaceAgeRepeater" EnableViewState="true">        
+    		<prop:ItemTemplate>
+            	<tr>
+                	<td align="left"><%# $this->Data->nom %></td>
+          			<td align="center"><%# $this->Data->minAge %></td>
+          			<td align="center"><%# $this->Data->maxAge %></td>
+          			<td align="center"><%# $this->Data->modifAge %></td>
+                </tr>
+    		</prop:ItemTemplate>
+		</com:TRepeater>
+      </table>
+      <h3>Taille et poids</h3>
+      <p>La taille et le poids de votre personnage sont choisis selon les formules suivantes :      </p>
+      <blockquote>
+        <p>Taille = TailleMoyenne + ModificateurTaille</p>
+        <p>Poids = PoidsMoyen + (ModificateurTaille * ModificateurPoids)</p>
+      </blockquote>
+      <table width="528" border="1">
+      	<tr>
+          <th width="132" scope="col">Race</th>
+          <th width="132" scope="col">Taille moyenne en cm</th>
+          <th width="132" scope="col">Modificateur</th>
+          <th width="132" scope="col">Poids moyen en livres</th>
+          <th width="132" scope="col">Modificateur</th>
+        </tr>
+      	<com:TRepeater ID="RaceTaillePoidsRepeater" EnableViewState="true">        
+    		<prop:ItemTemplate>
+            	<tr>
+                	<td align="left"><%# $this->Data->nom %></td>
+          			<td align="center"><%# $this->Data->tailleMoyenne %></td>
+          			<td align="center"><%# $this->Data->modifTaille %></td>
+          			<td align="center"><%# $this->Data->poidsMoyen %></td>
+                    <td align="center"><%# $this->Data->modifPoids %></td>
+                </tr>
+    		</prop:ItemTemplate>
+		</com:TRepeater>
+      </table>
+      <p>Par exemple un personnage humain mesure en moyenne 145 cm + 2d20 cm. Le modificateur est roulé et donne 12. Sa taille sera donc de 157 cm. Le même personnage pèse en moyenne 120 livres + (12 * 1d4). Le modificateur est roulé et donne 3. Son poids sera donc de 120 + (12*3) = 156 livres.</p>
+      <h3>Alignement</h3>
+      <p>Votre personnage devra choisir entre les alignements suivants :</p>
+      <table width="528" border="1">
+      	<tr>
+          <th width="158" scope="col">Alignement</th>
+          <th width="350" scope="col">Description</th>
+        </tr>
+		<com:TRepeater ID="AlignementRepeater" EnableViewState="true">        
+			<prop:ItemTemplate>
+				<tr>
+					<td align="left"><%# $this->Data->nom %></td>
+          			<td align="left"><%# $this->Data->descriptionCourte %></td>
+                </tr>
+    		</prop:ItemTemplate>
+		</com:TRepeater>
+      </table>
+      <ul>
+        <li>Loyal Bon : [Chevalier] Honneur et compassion</li>
+        <li>Neutre Bon : [Bienfaiteur] Fait le bien avec ou contre l'ordre.</li>
+        <li>Chaotique Bon : [Rebel] Bon coeur et esprit libre</li>
+        <li>Loyal Neutre : [Juge] Juste et honorable</li>
+        <li>Neutre Strict : [Indécis] Agit naturellement sans préjugé ni compulsion</li>
+        <li>Chaotique Neutre : [Esprit libre] Individualiste et libre</li>
+        <li>Loyal Mauvais : [Dominateur] Diabolique et méthodique</li>
+        <li>Neutre Mauvais : [Malfaiteur] : Mal pur sans honneur ni variation</li>
+        <li>Chaotique Mauvais : [Destructeur] : Destruction de l'ordre et de la beauté</li>
+      </ul>
+      <p>L'alignement de votre personnage dicte en quelque sorte ses actions. Un personnage loyal mauvais agira très différemment d'un personnage loyal bon même s'ils repectent tous les deux l'ordre.</p>
+      <h3>Région d'origine</h3>
+      <p>Votre personnage doit être originaire d'une des régions suivante.</p>
+      <com:TBulletedList 
+    	ID="RegionList"
+        DataTextField="nom"
+        DataValueField="id"
+    />  
+      <p>Dépendamment de la région, votre personnage peut recevoir des dons et des talents particuliers à sa région d'origine. Par exemple, un guerrier du Nord s'adapte facilement au climat arctique tandis qu'un autrer guerrier du Calimshan est entrainé soigneusement au combat d'arène.</p>
+      <h3>Apparence physique</h3>
+      <p>Vous pouvez décidez de quoi votre personnage a l'air. Un personnage avec beaucoup de charisme prétend à être plus beau qu'un personnage en ayant moins.</p>
+      <p>Voici quelques exemples pour vous guider dans votre description :</p>
+      <ul>
+        <li>droitier, gaucher ou ambidextre?</li>
+        <li>cicatrices, tatoos, piercings...</li>
+        <li>vêtements particuliers</li>
+        <li>coiffure, barbe, pilosité...</li>
+        <li>...</li>
+      </ul>
+      <h3>Personnalité</h3>
+      <p>Vous pouvez décider également quel tempérament a votre personnage, ses motivations, ses peurs, ce qui le rend en colère, etc. La race et l&quot;alignement sont des bons points de départ pour élaborer la personnalité de votre personnage mais ce ne sont pas les limites. Qu'est-ce qui différencie votre nain loyal bon de tous les autre nains loyal bons? Un truc pour créer de bonne personnalité est de faire intervenir un conflit dans la nature du personnage. Par exemple : votre personnage est loyal mais peut être  égoïste et peut parfois être tenté de voler pour s'approprier plus de richesses. La personnalité de votre personnage peut changer avec le temps. Elle n'est pas coulé dans le béton. Laissez votre personnage grandir et évoluer comme une personne réelle.</p>
+      <h3>Background</h3>
+      <p>Le background est en quelque sorte l'histoire de votre personnage jusqu'à aujourd'hui.</p>
+      <p>Voici quelques questions auxquelles vous pourrez répondre dans la description du background.</p>
+      <ul>
+        <li>Comment votre personnage est devenu un aventurier?</li>
+        <li>Comment a-t-il acquis sa classe?</li>
+        <li>Comment s'est-il procuré son équipement?</li>
+        <li>Quelle est la pire chose qui lui soit arrivé?</li>
+        <li>Quelle est la meilleure chose qui lui soit arrivé?</li>
+        <li>A-t-il une famille? Si oui quelles sont ses relations avec sa famille?</li>
+        <li>...</li>
+      </ul>
+      <p>&nbsp;</p>
+  </div>
+    
+</com:TContent>

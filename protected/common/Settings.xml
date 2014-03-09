@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+    <parameter id="SiteTitle" value="Dungeon Story" />
+    <parameter id="SiteSubtitle" value="Une histoire de donjon" />
+    <parameter id="SiteOwner" value="Prado User" />
+	<parameter id="AppName" value="dungeonstory" />
+    <parameter id="AdminEmail" value="fortier.jc@gmail.com" />
+    <parameter id="AccountApproval" value="true" />
+    <parameter id="MessagePerPage" value="10" />
+    <parameter id="MessageApproval" value="false" />
+</parameters>

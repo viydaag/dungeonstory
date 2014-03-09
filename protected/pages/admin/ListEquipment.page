@@ -1,0 +1,429 @@
+<%@ Title="Équipement" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Équipement</h2>
+        <com:THyperLink
+            ID="NewEquipment"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewEquipment') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Acheter
+    </div>
+    
+    <div class="main-content">
+       
+    	<com:TTabPanel TabCssClass="tab-normal" ActiveTabCssClass="tab-active">
+
+            <com:TTabView Caption="Armures">
+                <com:TActiveRepeater ID="RepeaterArmor">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->ArmorTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="ArmorTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <div class="form-row">
+                                    <com:TLabel ID="ArmorTypeLabel" Text="Type : " ForControl="ArmorType" />
+                                    <com:TLabel ID="ArmorType" Text="<%# $this->Data->armorType->name %>"/>
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="AcBonusLabel" Text="Bonus CA " ForControl="AcBonus" />
+                                    <com:TLabel ID="AcBonus" Text="<%# $this->Data->acBonus %>"/>
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="ArmorCheckPenaltyLabel" Text="Malus sur les compétences " ForControl="ArmorCheckPenalty" />
+                                    <com:TLabel ID="ArmorCheckPenalty" Text="<%# $this->Data->armorCheckPenalty %>"/>
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="ArcaneSpellFailureLabel" Text="% d'échec de sort d'arcane" ForControl="ArcaneSpellFailure" />
+                                    <com:TLabel ID="ArcaneSpellFailure" Text="<%# $this->Data->arcaneSpellFailure %>"/>
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater> 
+            </com:TTabView>
+
+
+            <com:TTabView Caption="Armes">
+                <com:TActiveRepeater ID="RepeaterWeapon">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->WeaponTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="WeaponTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                 <div class="form-row">
+                                    <com:TLabel ID="WeaponTypeLabel" Text="Type d'arme : " ForControl="WeaponType" />
+                                    <com:TLabel ID="WeaponType" Text="<%# $this->Page->getWeaponTypeString($this->Data->weaponType->type) %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="BaseDamageLabel" Text="Dégât de base : " ForControl="BaseDamage" />
+                                    <com:TLabel ID="BaseDamage" Text="<%# $this->Data->damage %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="BaseDamageTypeLabel" Text="Type de dégât : " ForControl="BaseDamageType" />
+                                    <com:TLabel ID="BaseDamageType" Text="<%# $this->Data->weaponType->damageType->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="AdditionalDamageLabel" Text="Dégât additionnel : " ForControl="AdditionalDamage" />
+                                    <com:TLabel ID="AdditionalDamage" Text="<%# $this->Data->additionalDamage %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel Text="Type de dégât additionel: " ForControl="AdditionalDamageType" />
+                                    <com:TLabel ID="AdditionalDamageType" Text="<%# $this->Data->additionalDamageType->name %>" /> 
+                                </div>
+                                <com:TActivePanel ID="WeaponMagicalBonusDiv" CssClass="form-row">
+                                    <com:TLabel ID="WeaponMagicalBonusLabel" Text="Bonus magique arme " ForControl="WeaponMagicalBonus" />
+                                    <com:TLabel ID="WeaponMagicalBonus" Text="<%# $this->Data->magicalBonus %>"/>
+                                </com:TActivePanel>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Anneaux">
+                <com:TActiveRepeater ID="RepeaterRing">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->RingTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="RingTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Amulettes">
+                <com:TActiveRepeater ID="RepeaterAmulet">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->AmuletTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="AmuletTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Bracelets">
+                <com:TActiveRepeater ID="RepeaterBracer">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->BracerTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="BracerTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Bottes">
+                <com:TActiveRepeater ID="RepeaterBoot">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->BootTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="BootTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Ceintures">
+                <com:TActiveRepeater ID="RepeaterBelt">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->BeltTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="BeltTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+            <com:TTabView Caption="Autre">
+                <com:TActiveRepeater ID="RepeaterUtil">
+                    <prop:ItemTemplate>
+                        <com:TLightWindow 
+                            Href="#<%=$this->UtilTemplate->getClientID()%>"
+                            Title="<%# $this->Data->name %>"
+                            Height="350"
+                            Width="600"
+                            Top="300"
+                            CssClass="list-item"
+                        />
+                        <com:TPanel ID="UtilTemplate">
+                            <div class="form-center">
+                                <div class="form-row">
+                                    <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                    <com:TLabel ID="Name" Text="<%# $this->Data->name %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                    <com:TLabel ID="Description" Text="<%# $this->Data->description %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                    <com:TLabel ID="Weight" Text="<%# $this->Data->weight %>" />
+                                </div>
+                                <div class="form-row">
+                                    <com:TLabel ID="CostLabel" Text="Prix : " ForControl="Cost" />
+                                    <com:TLabel ID="Cost" Text="<%# $this->Data->cost %>" />
+                                </div>
+                                <br/>
+                                <com:TLinkButton 
+                                    ID="EditButton" 
+                                    Text="Modifier" 
+                                    OnCommand="Page.editButtonClicked" 
+                                    CommandParameter="<%# $this->Data->id %>" 
+                                    CssClass="btn btn-primary"
+                                />
+                            </div>
+                        </com:TPanel>
+                    </prop:ItemTemplate>
+                </com:TActiveRepeater>
+            </com:TTabView>
+
+        </com:TTabPanel>
+
+	</div>
+
+    <com:TJavascriptLogger />
+ 
+</com:TContent>

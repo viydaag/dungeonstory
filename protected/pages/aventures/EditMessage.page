@@ -1,0 +1,54 @@
+<%@ Title="Modification Message" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Message</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+        />
+        <br/>
+        <com:THyperLink 
+			Text="Annuler" 
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.ViewMessage', array('aventureId'=>$this->Message->aventureId, 'messageId'=>$this->Message->id)) %>"
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+ 
+	<div class="main-header">
+		Modification du message
+    </div>
+    
+    <div class="main-content">
+ 
+        <span>Titre:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="TitleEdit"
+            ErrorMessage="Veuillez indiquer un titre."
+            Display="Dynamic" />
+        <br/>
+        <com:TTextBox ID="TitleEdit" Columns="50" />
+         
+        <br/><br/>
+        <span>Message:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="ContentEdit"
+            ErrorMessage="Veuillez indiquer le contenu du message."
+            Display="Dynamic" />
+        <br/>
+        <com:THtmlArea ID="ContentEdit" />
+        
+    </div> 
+ 
+</com:TContent>

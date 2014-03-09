@@ -1,0 +1,44 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Nouvelle</h2>
+        <com:TLinkButton
+        	ID="SaveNouvelle"
+            Text="Enregistrer"
+            OnClick="saveNouvelle"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <com:TLinkButton 
+            ID="DeleteNouvelle" 
+            Text="Supprimer"
+            OnClick="deleteNouvelle"
+            Attributes.onclick="javascript:if(!confirm('Etes vous sûr ?')) return false;" 
+        />
+        <br />
+        
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvelle
+    </div>
+    
+    <div class="main-content">     
+        <com:TLiteral Text="Titre"/>
+        <com:TTextBox ID="TitreEdit" Columns="75"/>
+        <br /><br />
+        <com:TLiteral Text="Description"/>
+        <com:THtmlArea ID="DescriptionEdit"/>
+	</div>
+ 
+</com:TContent>

@@ -1,0 +1,72 @@
+<%@ Title="Nouveau Message" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Message</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="createButtonClicked"
+        />
+        <br/>
+        <com:THyperlink
+        	ID="Cancel"
+            Text="Annuler"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.ViewAventure',array('aventureId'=>$this->Aventure->id)) %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+ 
+    <div class="main-header">
+		Nouveau Message
+    </div>
+    
+    <div class="main-content">
+    <com:TLiteral ID="test"/>
+    	<com:TControl Visible="<%= $this->isAllowToWriteAnonymeMessage() && $this->isAllowToWritePersoMessage() %>" >
+            <span>Type de message:</span><br/>
+            <com:TRadioButtonList ID="TypeMessage" Visible="<%= $this->isAllowToWriteAnonymeMessage() && $this->isAllowToWritePersoMessage() %>" >
+                  <com:TListItem Value="0" Text="Message de <%= $this->User->Perso->nom %>" Selected="true" />
+                  <com:TListItem Value="1" Text="Message anonyme" />
+            </com:TRadioButtonList>
+        </com:TControl>
+        
+        <br/>
+        <span>Titre:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="Title"
+            ErrorMessage="Veuillez indiquer un titre."
+            Display="Dynamic" />
+        <br/>
+        <com:TTextBox ID="Title" Columns="50" />
+         
+        <br/><br/>
+        <span>Message:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="Content"
+            ErrorMessage="Veuillez indiquer le contenu du message."
+            Display="Dynamic" />
+        <br/>
+        <com:THtmlArea ID="Content" MaxLength="100">
+        	<prop:Options>
+    			convert_newlines_to_brs : true
+                force_p_newlines : true
+				force_br_newlines : false
+                width : "200"
+  			</prop:Options>
+        </com:THtmlArea>
+
+	</div>
+ 
+</com:TContent>

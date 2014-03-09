@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<authorization>
+		<allow pages="NewPerso, ViewPerso, EditPerso, LevelUp" users="@" />
+    	<deny users="*" />
+	</authorization>
+</configuration>

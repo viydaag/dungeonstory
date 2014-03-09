@@ -1,0 +1,127 @@
+<%@ Title="Administration des races" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Race" 
+        	SaveButton.OnClick="Page.saveButtonClicked"
+            SaveButton.ValidationGroup="Group1"
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListRace') %>" 
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Races
+    </div>
+    
+    <div class="main-content">
+
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="NomEdit" />
+                <com:TTextBox ID="NomEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MF : " ForControl="MFEdit" />
+                <com:TTextBox ID="MFEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MFEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MD : " ForControl="MDEdit" />
+                <com:TTextBox ID="MDEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MDEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MCo : " ForControl="MCoEdit" />
+                <com:TTextBox ID="MCoEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MCoEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MI : " ForControl="MIEdit" />
+                <com:TTextBox ID="MIEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MIEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MS : " ForControl="MSEdit" />
+                <com:TTextBox ID="MSEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MSEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MCh : " ForControl="MChEdit" />
+                <com:TTextBox ID="MChEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MChEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Min Age : " ForControl="MinAgeEdit" />
+                <com:TTextBox ID="MinAgeEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MinAgeEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Max Age : " ForControl="MaxAgeEdit" />
+                <com:TTextBox ID="MaxAgeEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="MaxAgeEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MA : " ForControl="MAEdit" />
+                <com:TTextBox ID="MAEdit" />
+                <com:TRegularExpressionValidator 
+                    ValidationGroup="Group1" 
+                    ControlToValidate="MAEdit" 
+                    RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                    Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Taille Moyenne : " ForControl="TMoyenneEdit" />
+                <com:TTextBox ID="TMoyenneEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="TMoyenneEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MT : " ForControl="MTEdit" />
+                <com:TTextBox ID="MTEdit" />
+                <com:TRegularExpressionValidator 
+                    ValidationGroup="Group1" 
+                    ControlToValidate="MTEdit" 
+                    RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                    Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Poids Moyenne : " ForControl="PMoyenEdit" />
+                <com:TTextBox ID="PMoyenEdit" />
+                <com:TDataTypeValidator ValidationGroup="Group1" ControlToValidate="PMoyenEdit" DataType="Integer" Text="Vous devez entrer une valeur entiere."/>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="MP : " ForControl="MPEdit" />
+                <com:TTextBox ID="MPEdit" />
+                <com:TRegularExpressionValidator 
+                    ValidationGroup="Group1" 
+                    ControlToValidate="MPEdit" 
+                    RegularExpression="[1-9]d(4|6|8|10|12|20|100)" 
+                    Text="La valeur doit etre dans le format suivant : [1-9]d[4|6|8|10|12|20|100]" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ShortDescLabel" Text="Decription Courte : " ForControl="DescriptionCourteEdit" />
+                <com:TTextBox ID="DescriptionCourteEdit" Columns="78" Rows="2"/>
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="DescriptionEdit" />
+                <com:TTextBox ID="DescriptionEdit" ReadOnly="false" TextMode="MultiLine" Rows="10" Columns="60" />
+            </div>
+        </div>
+
+	</div>
+ 
+</com:TContent>

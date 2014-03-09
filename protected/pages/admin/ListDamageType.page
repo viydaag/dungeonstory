@@ -1,0 +1,38 @@
+<%@ Title="Administration des type de dommage" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Types de dommage
+    </div>
+    
+    <div class="main-content">
+		<com:TScaffoldView RecordClass="DamageTypeRecord">
+			<prop:ListView.Header.ItemTemplate>
+		        	
+		    </prop:ListView.Header.ItemTemplate>
+		    <prop:ListView.List.ItemTemplate>
+		    	<div class="list-item-left">
+		        	<%# $this->DataItem->name %>
+		        	<com:TButton Text="Edit" CommandName="edit" CssClass="btn btn-primary"/>
+		        	<com:TButton Text="Supprimer" CommandName="delete" CssClass="btn btn-danger"/>
+		    	</div>
+		    </prop:ListView.List.ItemTemplate>
+		</com:TScaffoldView/>
+	</div>
+		
+</com:TContent>

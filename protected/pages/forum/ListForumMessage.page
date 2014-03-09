@@ -1,0 +1,53 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Message</h2>
+        <com:THyperLink 
+        	Text="Creer" 
+        	NavigateUrl="<%= $this->Service->constructUrl('forum.NewForumMessage', array('forumCategorieId'=>$this->Discussion->categorie->id, 'forumDiscussionId'=>$this->Discussion->id)) %>"
+            Target="_parent"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+    
+    <div class="main-header">
+		Forum
+    </div>
+
+    <div class="main-content">
+    	<table border="1">
+            <com:TRepeater ID="ForumMessageRepeater">        
+                <prop:ItemTemplate>
+                	<tr>
+                    	<th>Auteur</th>
+                        <th>Discussion : <%= $this->Data->discussion->sujet %> </th>
+                    </tr>
+                	<tr>
+                    	<td>
+                            <com:DSLiteral
+                                Text="<%# $this->Data->user->pseudo %>"
+                                HLengh="75"                                
+                            />
+                        </td>
+                    	<td>
+                            <com:DSLiteral
+                                Text="<%# $this->Data->texte %>"
+                                HLengh="75"                                
+                            />
+                        </td>                        	
+                    </tr>
+                </prop:ItemTemplate>
+            </com:TRepeater>
+        </table>
+	</div>
+
+</com:TContent>

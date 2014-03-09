@@ -1,0 +1,78 @@
+<%@ Title="Nouvelle Aventure" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Aventure</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="createButtonClicked"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+ 
+	<div class="main-header">
+		Nouvelle Aventure
+    </div>
+    
+    <div class="main-content">
+ 
+ 		<table>
+        	<tr>
+            	<td>Nom:</td>
+        		<td>
+                    <com:TRequiredFieldValidator
+                        ControlToValidate="Nom"
+                        ErrorMessage="Veuillez indiquer un nom."
+                        Display="Dynamic" />
+                    <com:TTextBox ID="Nom" Columns="93" />
+                </td>
+            </tr>
+            <tr>
+            	<td>Description:</td>
+                <td><com:TTextBox ID="Description" TextMode="MultiLine" Rows="6" Columns="70"/></td>
+			</tr>
+		</table>        
+        
+        <p>
+            En tant que créateur de l'aventure, vous vous déclarez "maitre de l'aventure". <br/>
+            Vous pourrez entre autres <br/>
+            <ul>
+                <li>	écrire à tout moment des messages anonymes qui décrivent des événements, actions, etc. </li>
+                <li>	modifier l'aventure (nom, description, statut) </li>
+                <li>	décider quand l'aventure est ouverte aux joueurs, démarrée ou terminée </li>
+                <li>	participer ou nom à l'aventure avec votre personnage </li>
+            </ul>
+        </p>
+        
+        <com:TControl Visible="<%= $this->User->hasPerso() && !$this->User->Perso->isInAventure() %>">
+            <com:TRadioButtonList ID="Participation">
+              <com:TListItem Value="0" 
+              		Text="Je veux que mon personnage participe à l'aventure" 
+                    Enabled="<%= $this->User->hasPerso() && !$this->User->Perso->isInAventure() %>" 
+              />
+              <com:TListItem Value="1" 
+              		Text="Je ne veux pas que mon personnage participe à l''aventure" 
+                    Selected="true"
+              />
+            </com:TRadioButtonList>
+        </com:TControl>
+        
+        <com:TControl Visible="<%= !$this->User->hasPerso() || $this->User->Perso->isInAventure() %>">
+            Note : Vous n'avez pas de personnage ou bien votre personnage fait déjà partie d'une autre aventure. <br/>
+            Cela ne vous empêchera pas de créer des messages anonymes mais votre personnage si présent, ne pourra participer à l'aventure.<br/>
+        </com:TControl>
+        
+	</div>
+ 
+</com:TContent>

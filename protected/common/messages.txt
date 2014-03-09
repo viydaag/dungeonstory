@@ -1,0 +1,37 @@
+profile_edit_disallowed					= Vous n'êtes pas autorisé à modifier le profile du joueur {0}.
+profile_not_found						= Vous devez être connecté au site pour effectuer cette action.
+profile_deactivated						= Votre pseudo a été désactivé.
+
+aventure_id_invalid						= Impossible de trouver l'aventure {0}.
+aventure_edit_disallowed				= Vous n'êtes pas autorisé à modifier l'aventure {0}.
+
+message_id_invalid						= Impossible de trouver le message {0}.
+message_view_disallowed					= Vous n'êtes pas autorisé à voir le message {0}.
+message_edit_disallowed					= Vous n'êtes pas autorisé à modifier le message {0}.
+message_delete_disallowed				= Vous n'êtes pas autorisé à supprimer le message {0}.
+
+perso_id_invalid						= Impossible de trouver le perso {0}.
+perso_view_disallowed					= Vous n'êtes pas autorisé à voir le perso {0}.
+perso_edit_disallowed					= Vous n'êtes pas autorisé à modifier le perso {0}.
+perso_levelup_disallowed				= Vous n'êtes pas autorisé à monter de niveau pour le perso {0}.
+perso_not_found							= Vous devez avoir un perso pour effectuer cette action.
+
+admin_view_disallowed					= Vous devez détenir un accès administrateur pour effectuer cette action.
+admin_upload_too_big_file				= Le fichier {0} est trop gros pour être télécharger sur le site.
+
+race_id_invalid							= Impossible de trouver la race {0}.
+classe_id_invalid						= Impossible de trouver la classe {0}. 
+alignement_id_invalid					= Impossible de trouver l'alignement {0}.
+region_id_invalid						= Impossible de trouver la région {0}.
+skill_id_invalid						= Impossible de trouver la compétence {0}.
+feat_id_invalid							= Impossible de trouver la caractéristique {0}.
+equipment_type_invalid					= Impossible de trouver le type d'équipement {0}.
+equipment_id_invalid					= Impossible de trouver l'équipement {0}.
+monster_id_invalid						= Impossible de trouver le monstre {0}.
+monster_id_invalid
+
+nouvelle_id_invalid						= Impossible de trouver la nouvelle {0}.
+nouvelle_delete_disallowed				= Vous n'êtes pas autorisé à supprimer la nouvelle {0}.
+
+forum_categorie_id_invalid				= Impossible de trouver la catégorie {0}.
+ 

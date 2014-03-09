@@ -1,0 +1,47 @@
+<%@ Title="Administration des races" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Race</h2>
+        <com:THyperLink
+        	ID="NewRace"
+            Text="Cr&eacute;er"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewRace') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Races
+    </div>
+    
+    <div class="main-content">
+        <com:TRepeater ID="RepeaterRace">
+            <prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->nom %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditRace', array('raceId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+	</div>
+    
+</com:TContent>

@@ -1,0 +1,47 @@
+<%@ Title="Administration des caractéristiques" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Caractéristique</h2>
+        <com:THyperLink
+        	ID="NewFeat"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewFeat') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Caractéristiques
+    </div>
+    
+    <div class="main-content">     
+        <com:TRepeater ID="RepeaterFeat">
+			<prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->name %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditFeat', array('featId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+    </div>
+ 
+</com:TContent>

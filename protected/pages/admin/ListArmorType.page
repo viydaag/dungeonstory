@@ -1,0 +1,81 @@
+<%@ Title="Administration des types d'armure" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Type d'armure</h2>
+        <com:THyperLink
+        	ID="NewArmorType"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewArmorType') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Types d'armure
+    </div>
+    
+    <div class="main-content">
+        <com:TTabPanel ID="ArmorTypePanel" ActiveViewIndex="0">
+            <com:TTabView ID="view1" Caption="Léger">
+                <com:TRepeater ID="RepeaterArmorTypeLight">
+                    <prop:ItemTemplate>
+                        <com:THyperLink
+                            Text="<%# $this->Data->name %>"
+                            NavigateUrl="<%= $this->Service->constructUrl('admin.EditArmorType', array('armorTypeId'=>$this->Data->id)) %>"
+                            Target="_parent"
+                            Visible="<%= $this->User->isAdmin %>"
+                            CssClass="list-item"
+                        />
+                        <br/>
+                    </prop:ItemTemplate>
+                </com:TRepeater>
+            </com:TTabView>
+            <com:TTabView ID="view2" Caption="Medium">
+                <com:TRepeater ID="RepeaterArmorTypeMedium">
+                    <prop:ItemTemplate>
+                        <com:THyperLink
+                            Text="<%# $this->Data->name %>"
+                            NavigateUrl="<%= $this->Service->constructUrl('admin.EditArmorType', array('armorTypeId'=>$this->Data->id)) %>"
+                            Target="_parent"
+                            Visible="<%= $this->User->isAdmin %>"
+                            CssClass="list-item"
+                        />
+                        <br/>
+                    </prop:ItemTemplate>
+                </com:TRepeater>
+            </com:TTabView>
+            <com:TTabView ID="view3" Caption="Lourd">
+                <com:TRepeater ID="RepeaterArmorTypeHeavy">
+                    <prop:ItemTemplate>
+                        <com:THyperLink
+                            Text="<%# $this->Data->name %>"
+                            NavigateUrl="<%= $this->Service->constructUrl('admin.EditArmorType', array('armorTypeId'=>$this->Data->id)) %>"
+                            Target="_parent"
+                            Visible="<%= $this->User->isAdmin %>"
+                            CssClass="list-item"
+                        />
+                        <br/>
+                    </prop:ItemTemplate>
+                </com:TRepeater>
+            </com:TTabView>
+        </com:TTabPanel>
+        
+        
+    </div>
+ 
+</com:TContent>

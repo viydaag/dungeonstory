@@ -1,0 +1,122 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Monstres</h2>
+        <com:TLinkButton
+        	ID="SaveMonster"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <com:THyperLink 
+			Text="Annuler" 
+            NavigateUrl="<%= $this->Service->constructUrl('admin.ListMonster') %>"
+            Target="_parent"
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Monstres
+    </div>
+    
+    <div class="main-content">     
+       <table border="0" cellspacing="1">
+            <tr>
+            	<td width="150">Nom : </td>
+                <td><com:TTextBox ID="Name"/></td>
+                <td></td>
+            </tr>
+            <tr>
+            	<td>Description :</td>
+                <td colspan="2">
+                	<com:TTextBox
+                        ID="Description"
+                        ReadOnly="false"
+                        TextMode="MultiLine" 
+                        Rows="10" 
+                        Columns="60"
+                	/>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+            	<td>Niveau : </td>
+                <td><com:TTextBox ID="Level"/></td>
+                <td>
+                	<com:TActiveFileUpload OnFileUpload="fileUploaded" />
+                </td>
+            </tr>
+            <tr>
+            	<td>Degré de difficulté : </td>
+                <td><com:TTextBox ID="CR"/></td>
+                <td rowspan="13">
+                	<com:TActiveImage ID="Image" />
+                </td>
+            </tr>
+            <tr>
+            	<td>Ajustement de niveau : </td>
+                <td><com:TTextBox ID="LevelAdjustment"/></td>
+            </tr>
+            <tr>
+            	<td>Expérience : </td>
+                <td><com:TTextBox ID="XP"/></td>
+            </tr>
+            <tr>
+            	<td>Alignement</td>
+                <td>
+                	<com:TDropDownList ID="Alignment"  
+                        DataTextField="nom"
+                        DataValueField="id"
+                    />
+                </td>
+            </tr>
+            <tr>
+            	<td>Classe d'armure : </td>
+                <td><com:TTextBox ID="AC"/></td>
+            </tr>
+            <tr>
+            	<td>Vie : </td>
+                <td><com:TTextBox ID="Life"/></td>
+            </tr>
+            <tr>
+            	<td>Initiative : </td>
+                <td><com:TTextBox ID="Initiative"/></td>
+            </tr>
+            <tr>
+            	<td>Force : </td>
+                <td><com:TTextBox ID="Str"/></td>
+            </tr>
+            <tr>
+            	<td>Dextérité : </td>
+                <td><com:TTextBox ID="Dex"/></td>
+            </tr>
+            <tr>
+            	<td>Constitution : </td>
+                <td><com:TTextBox ID="Con"/></td>
+            </tr>
+            <tr>
+            	<td>Intelligence : </td>
+                <td><com:TTextBox ID="Int"/></td>
+            </tr>
+            <tr>
+            	<td>Sagesse : </td>
+                <td><com:TTextBox ID="Wis"/></td>
+            </tr>
+            <tr>
+            	<td>Charisme : </td>
+                <td><com:TTextBox ID="Cha"/></td>
+            </tr>            
+        </table>
+	</div>
+ 
+</com:TContent>

@@ -1,0 +1,47 @@
+<%@ Title="Administration des régions" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Region</h2>
+        <com:THyperLink
+        	ID="NewRegion"
+            Text="Créer"
+            NavigateUrl="<%= $this->Service->constructUrl('admin.NewRegion') %>"
+            Target="_parent"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <br/>
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Régions
+    </div>
+    
+    <div class="main-content">
+        <com:TRepeater ID="RepeaterRegion">
+            <prop:ItemTemplate>
+            	<com:THyperLink
+                	Text="<%# $this->Data->nom %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditRegion', array('regionId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    Visible="<%= $this->User->isAdmin %>"
+                    CssClass="list-item"
+                />
+                <br/>
+        	</prop:ItemTemplate>
+        </com:TRepeater>
+	</div>
+ 
+</com:TContent>

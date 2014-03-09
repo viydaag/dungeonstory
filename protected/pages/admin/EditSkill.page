@@ -1,0 +1,58 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Compétence" 
+        	SaveButton.OnClick="Page.saveButtonClicked" 
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListSkill') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Compétences
+    </div>
+    
+    <div class="main-content">
+	    <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="NameEdit" />
+                <com:TTextBox ID="NameEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="DescriptionEdit" />
+                <com:TTextBox ID="DescriptionEdit" TextMode="MultiLine" Rows="3" Columns="60" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Attribut clé : " ForControl="AbilityListEdit"/>
+		        <com:TDropDownList ID="AbilityListEdit"  
+		            DataTextField="name"
+		            DataValueField="id"
+		            AutoPostBack="true"
+		        />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Pénalité d'armure " ForControl="ArmorCheckPenaltyEdit"/>
+	       		<com:TCheckBox ID="ArmorCheckPenaltyEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Peut essayer encore si échec " ForControl="TryAgainEdit"/>
+	        	<com:TCheckBox ID="TryAgainEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Nécessite entrainement " ForControl="TrainedOnlyEdit"/>
+	        	<com:TCheckBox ID="TrainedOnlyEdit" />
+            </div>
+        </div>
+	</div>
+    
+</com:TContent>

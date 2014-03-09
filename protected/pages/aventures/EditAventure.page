@@ -1,0 +1,58 @@
+<%@ Title="Modification Aventure" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    	<h2>Aventure</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+            Visible="<%= !$this->User->IsGuest && ($this->User->Profile->id == $this->Aventure->createurId || $this->User->isAdmin) %>"
+        />
+        <br/>
+        <com:THyperLink 
+			Text="Annuler" 
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.ViewAventure', array('aventureId'=>$this->Aventure->id)) %>"
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+ 
+	<div class="main-header">
+		<com:TLiteral Text="<%= $this->Aventure->nom %>" />
+    </div>
+    
+    <div class="main-content">
+ 
+        <span>Nom:</span>
+        <com:TRequiredFieldValidator
+            ControlToValidate="NomEdit"
+            ErrorMessage="Veuillez indiquer un nom."
+            Display="Dynamic" />
+        <com:TTextBox ID="NomEdit" Columns="100" />
+         
+        <br/><br/>
+        <span>Description:</span>
+        <com:TTextBox ID="DescriptionEdit" TextMode="MultiLine" Rows="6" Columns="70"/>
+        
+        <br/><br/>
+        <span>Statut:</span>
+        <com:TDropDownList ID="StatutEdit" Enabled="<%= $this->Aventure->isNotTerminated() %>" SelectedValue="<%= $this->Aventure->statut %>" >
+            <com:TListItem Text="Ouverte" Value="0" />
+            <com:TListItem Text="Démarrée" Value="1" />
+            <com:TListItem Text="Terminée" Value="2" />
+            <com:TListItem Text="Annulée" Value="3" />
+        </com:TDropDownList>
+
+	</div>
+ 
+</com:TContent>

@@ -1,0 +1,140 @@
+<%@ Title="Administration des races" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:Application.Portlets.ManagementPortlet Visible="<%= !$this->User->IsGuest && $this->User->IsAdmin %>" />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+ 
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Images
+    </div>
+    
+    <com:TMultiView ID="ImageMultiView">
+    
+    	<com:TView ID="SexeView">
+        
+        	<div class="main-content">
+                <com:TLinkButton
+                    ID="Homme"
+                    Text="Homme"
+                    OnCommand="goToRaceView"
+                    CommandName="M"
+                />
+                <br/><br/>
+                <com:TLinkButton
+                    ID="Femme"
+                    Text="Femme"
+                    OnCommand="goToRaceView"
+                    CommandName="F"
+                />
+            </div>
+            
+        </com:TView>
+        
+        <com:TView ID="RaceView">
+        	<div class="main-content">
+                <com:TRepeater ID="RaceRepeater" EnableViewState="true">        
+                    <prop:ItemTemplate>
+                        <com:TLinkButton
+                            Text="<%# $this->Data->nom %>"
+                            OnCommand="Page.goToImageView"
+                            CommandName="<%# $this->Data->nom %>"
+                        />
+                        <br/>
+                    </prop:ItemTemplate>
+                </com:TRepeater>
+            </div>
+        <!--
+        	<div class="main-content">
+                <com:TLinkButton
+                    ID="Humain"
+                    Text="Humain"
+                    OnCommand="goToImageView"
+                    CommandName="Humain"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Nain"
+                    Text="Nain"
+                    OnCommand="goToImageView"
+                    CommandName="Nain"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Elfe"
+                    Text="Elfe"
+                    OnCommand="goToImageView"
+                    CommandName="Elfe"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Gnome"
+                    Text="Gnome"
+                    OnCommand="goToImageView"
+                    CommandName="Gnome"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Halfling"
+                    Text="Halfling"
+                    OnCommand="goToImageView"
+                    CommandName="Halfling"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Demielfe"
+                    Text="Demi-elfe"
+                    OnCommand="goToImageView"
+                    CommandName="Demi-elfe"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Demiorc"
+                    Text="Demi-orc"
+                    OnCommand="goToImageView"
+                    CommandName="Demi-orc"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Aasimar"
+                    Text="Aasimar"
+                    OnCommand="goToImageView"
+                    CommandName="Aasimar"
+                />
+                <br />
+                <com:TLinkButton
+                    ID="Tiefling"
+                    Text="Tiefling"
+                    OnCommand="goToImageView"
+                    CommandName="Tiefling"
+                />
+                <br />
+            </div>
+            -->
+        </com:TView>
+
+        <com:TView ID="ImageView">
+        
+            <div class="main-content">     
+                <com:Application.Portlets.ImagePortlet ID="ImagePortlet" WithRadioButton="false" />
+                <com:TFileUpload OnFileUpload="fileUploaded" />
+                <br/>
+                <com:TButton Text="Upload" />
+            </div>
+            
+        </com:TView>
+            
+    </com:TMultiView>
+ 
+</com:TContent>

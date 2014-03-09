@@ -1,0 +1,126 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Classe" 
+        	SaveButton.OnClick="Page.saveButtonClicked"
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListClasse') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Classes
+    </div>
+    
+    <div class="main-content">     
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="NomEdit" />
+                <com:TTextBox ID="NomEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Points de vie à chaque niveau : " ForControl="VieEdit" />
+                <com:TTextBox ID="VieEdit" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ShortDescLabel" Text="Decription Courte : " ForControl="DescriptionCourteEdit" />
+                <com:TTextBox ID="DescriptionCourteEdit" TextMode="MultiLine" Rows="2" Columns="60" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="DescriptionEdit" />
+                <com:TTextBox ID="DescriptionEdit" ReadOnly="false" TextMode="MultiLine" Rows="10" Columns="60" />
+            </div>
+        </div>
+        <com:TLiteral Text="Compétences de classe : " />
+        <br />
+        <com:TCheckBoxList 
+        	ID="SkillsEdit"
+        	RepeatColumns="3" 
+            RepeatDirection="Horizontal" 
+            RepeatLayout="Table"
+            DataTextField="name"
+            DataValueField="id"
+        />
+        <br/>
+        <com:TLiteral Text="Bonus de classe : " />
+        <br />
+        <table border="1" cellspacing="1">
+        	<tr align="left">
+            	<th>Niveau</th>
+                <th>Bonus d'attaque</th>
+                <th>Endurance</th>
+                <th>Réflexe</th>
+                <th>Volonté</th>
+                <th>Bonus CA</th>
+                <th>Charactéristiques</th>
+            </tr>
+            <com:TActiveRepeater ID="ClassLevelBonusRepeater" EnableViewState="true">
+				<prop:ItemTemplate>
+                	<tr>
+                    	<td><com:TLiteral ID="LevelEdit" Text="<%# $this->Data->level->niveau %>" /></td>
+						<td><com:TTextBox ID="BaseAttackBonusEdit" Text="<%# $this->Data->baseAttackBonus %>" Columns="10" /></td>
+                        <td><com:TTextBox ID="FortSaveEdit" Text="<%# $this->Data->fortSave %>" Columns="10" /></td>
+                        <td><com:TTextBox ID="RefSaveEdit" Text="<%# $this->Data->refSave %>" Columns="10" /></td>
+                        <td><com:TTextBox ID="WillSaveEdit" Text="<%# $this->Data->willSave %>" Columns="10" /></td>
+                        <td><com:TTextBox ID="ACBonusEdit" Text="<%# $this->Data->acBonus %>" Columns="10" /></td>
+                        <td>
+                        	<com:TActivePanel ID="FeatPanel" CustomData="<%= $this->LevelEdit->Text %>">
+                            	<com:TActiveLinkButton ID="AddFeatButton" Text="Ajouter" OnClick="Page.addFeat" CustomData="<%= $this->LevelEdit->Text %>" />
+                                <br/>
+                                <com:TActiveRepeater ID="FeatRepeater" EnableViewState="true" CustomData="<%= $this->LevelEdit->Text %>" >
+                                    <prop:ItemTemplate>
+                                        <com:TActiveDropDownList ID="FeatList" 
+                                            DataTextField="name"
+                                            DataValueField="id"
+                                            DataSource="<%# FeatRecord::finder()->findall() %>"
+                                            SelectedValue="<%# $this->Data['feat'] %>"
+                                            CustomData="<%# $this->Data['level'] %>"
+                                        />
+                                        <com:TActiveLinkButton 
+                                        	ID="RemoveFeatButton" 
+                                        	Text="Supprimer" 
+                                            OnClick="Page.removeFeat" 
+                                            CustomData="<%# $this->Data['feat'] %>/<%# $this->Data['level'] %>" />
+                                        <br/>
+                                    </prop:itemtemplate>
+                                </com:TActiveRepeater>
+                            </com:TActivePanel>
+                        </td>
+                    </tr>
+                </prop:ItemTemplate>
+            </com:TActiveRepeater>
+            <com:TJavascriptLogger/>
+        </table>
+        <br/>
+        <table border="1" cellspacing="1">
+        	<tr align="center">
+            	<th></th>
+                <th colspan="10">Sorts par jour</th>
+            </tr>
+        	<tr align="center">
+            	<th>Niveau</th>
+                <th>Niveau 0</th>
+                <th>Niveau 1</th>
+                <th>Niveau 2</th>
+                <th>Niveau 3</th>
+                <th>Niveau 4</th>
+                <th>Niveau 5</th>
+                <th>Niveau 6</th>
+                <th>Niveau 7</th>
+                <th>Niveau 8</th>
+                <th>Niveau 9</th>
+            </tr>
+        </table>
+	</div>
+ 
+</com:TContent>

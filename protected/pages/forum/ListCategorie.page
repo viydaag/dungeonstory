@@ -1,0 +1,44 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+    
+    <div class="main-header">
+		Forum
+    </div>
+    
+    <div class="main-content">
+    	<table border="1">
+            <com:TRepeater ID="CategorieRepeater">        
+                <prop:ItemTemplate>
+                	<tr>
+                    	<td>
+                            <com:THyperlink
+                                Text="<%# $this->Data->nom %>"
+                                Target="_parent"
+                                NavigateUrl="<%# $this->Service->constructUrl('forum.ListDiscussion', array('forumCategorieId'=>$this->Data->id)) %>"
+                            />
+                            <br/>
+                            <com:TLiteral
+                                Text="<%# $this->Data->description %>"
+                            />
+                        </td>
+                        	
+                    </tr>
+                </prop:ItemTemplate>
+            </com:TRepeater>
+        </table>
+	</div>
+ 
+</com:TContent>

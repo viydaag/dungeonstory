@@ -1,0 +1,41 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Nouvelle</h2>
+        <com:TLinkButton
+        	ID="SaveNouvelle"
+            Text="Enregistrer"
+            OnClick="saveNouvelle"
+            Visible="<%= $this->User->isAdmin %>"
+        />
+        <com:THyperLink
+        	ID="Cancel"
+            Text="Annuler"
+            NavigateUrl="<%= $this->Service->constructUrl('info.ListNouvelle') %>"
+            Target="_parent"
+        />      
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouvelle
+    </div>
+    
+    <div class="main-content">     
+        <com:TLiteral Text="Titre"/>
+        <com:TTextBox ID="Titre" Columns="75"/>
+        <br /><br />
+        <com:TLiteral Text="Description"/>
+        <com:THtmlArea ID="Description"/>
+	</div>
+ 
+</com:TContent>

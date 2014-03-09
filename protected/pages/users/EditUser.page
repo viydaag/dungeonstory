@@ -1,0 +1,87 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Profil</h2>
+        <com:TLinkButton
+        	ID="SaveButtonLink"
+            Text="Enregistrer"
+            OnClick="saveButtonClicked"
+            Visible="<%= !$this->User->IsGuest %>"
+            ValidationGroup="Group1"
+        />
+        <br/>
+        <com:THyperLink 
+			Text="Annuler" 
+            NavigateUrl="<%= $this->Service->constructUrl('users.ViewUser', array('userId'=>$this->User->Profile->id)) %>"
+        /> 
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Profil
+    </div>
+
+	<div class="main-content">
+
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel Text="Pseudo : " ForControl="PseudoTextBox" />
+                <com:TTextBox ID="PseudoTextBox" ReadOnly="true"/> 
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Mot de passe : " ForControl="PasswordTextBox" />
+                <com:TTextBox ID="PasswordTextBox" TextMode="Password" />
+                <com:TRequiredFieldValidator
+                    ControlToValidate="PasswordTextBox"
+                    ErrorMessage="Veuillez indiquer un mot de passe."
+                    ValidationGroup="Group1" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Confirmation mot de passe : " ForControl="Password2TextBox" />
+                <com:TTextBox ID="Password2TextBox" TextMode="Password" />
+                <com:TCompareValidator
+                    ControlToValidate="PasswordTextBox"
+                    ControlToCompare="Password2TextBox"
+                    ErrorMessage="Différence entre le mot de passe et la confirmation."
+                    Display="Dynamic"
+                    ValidationGroup="Group1"
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Nom : " ForControl="NomTextBox" />
+                <com:TTextBox ID="NomTextBox" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Email : " ForControl="EmailTextBox" />
+                <com:TTextBox ID="EmailTextBox" />
+                <com:TEmailAddressValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="EmailTextBox"
+                    FocusOnError="true"
+                    Text="Adresse email invalide" 
+                />
+            </div>
+            <com:TControl Visible="<%= $this->User->IsAdmin %>">
+                <div class="form-row">
+                    <com:TLabel Text="Role : " ForControl="RoleList" />
+                    <com:TDropDownList ID="RoleList" 
+                        DataTextField="nom"
+                        DataValueField="id"
+                    />
+                </div>
+            </com:TControl>
+        </div>
+	
+    </div>
+    
+</com:TContent>

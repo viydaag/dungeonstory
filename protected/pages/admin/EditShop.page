@@ -1,0 +1,119 @@
+<%@ Title="Administration des magasins" %>
+ 
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Magasin
+    </div>
+    
+    <div class="main-content">
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                <com:TTextBox ID="Name" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description : " ForControl="Description" />
+                <com:TTextBox ID="Description" ReadOnly="false" TextMode="MultiLine" Rows="10" Columns="60" />
+            </div>
+        </div>
+
+        
+
+        <com:TActiveDataGrid
+            CellPadding="2"
+            ID="DataGridItems"
+            DataKeyField="equipment.id"
+            AutoGenerateColumns="false"
+            HeaderStyle.BackColor="black"
+            HeaderStyle.ForeColor="white"            
+            EditItemStyle.BackColor="green"
+            OnItemCreated="itemCreated"
+            OnEditCommand="editItem"
+            OnDeleteCommand="deleteItem"
+            OnUpdateCommand="saveItem"
+            OnCancelCommand="cancelItem"
+            >
+         
+            <com:TActiveBoundColumn
+                ID="NameColumn"
+                HeaderText="Nom"
+                HeaderStyle.Width="300px"
+                DataField="equipment.name"
+                ReadOnly="true"
+            />
+
+            <com:TActiveBoundColumn
+                ID="QuantityColumn"
+                HeaderText="Quantité"
+                HeaderStyle.Width="100px"
+                DataField="quantity"
+                ItemStyle.HorizontalAlign="Center"
+            />
+
+            <com:TActiveEditCommandColumn
+                ID="EditColumn"
+                HeaderText="Modifier"
+                HeaderStyle.Width="100px"
+                EditText="Modifier"
+                UpdateText="Sauvegarder"
+                CancelText="Annuler"
+                ItemStyle.HorizontalAlign="Center"
+                ItemStyle.Font.Italic="false"
+            />
+
+            <com:TActiveButtonColumn
+                ID="DeleteColumn"
+                HeaderText="Supprimer"
+                HeaderStyle.Width="100px"
+                ItemStyle.HorizontalAlign="Center"
+                ItemStyle.Font.Italic="false"
+                Text="Supprimer"
+                CommandName="delete"
+            />
+
+        </com:TActiveDataGrid>
+
+        <br/>
+        
+
+        <com:TActivePanel ID="NewItemPanel" GroupingText="Nouvel item">
+            <com:TActiveDropDownList ID="NewItemList" DataTextField="name" DataValueField="id" PromptText="Choisir un item"/>
+            <com:TRequiredFieldValidator
+                ValidationGroup="Group1"
+                ControlToValidate="NewItemList"
+                Display="Dynamic"
+                Text="Un choix doit être fait"
+                FocusOnError="true"
+            />
+            <com:TActiveTextBox ID="NewItemQuantity" />
+            <com:TRequiredFieldValidator
+                ControlToValidate="NewItemQuantity"
+                ErrorMessage="champ requis"
+                Display="Dynamic"
+                InitialValue="test"
+                ValidationGroup="Group1"
+                FocusOnError="true" 
+            />
+            <com:TActiveButton ID="AddButton" Text="Ajouter" OnClick="addNewRow" ValidationGroup="Group1"/>
+        </com:TActivePanel>
+        
+        <com:TJavascriptLogger />
+
+        
+	</div>
+ 
+</com:TContent>

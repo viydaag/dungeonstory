@@ -1,0 +1,795 @@
+<%@ Title="Nouveau perso" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Personnage</h2>
+        <com:TLinkButton
+        	ID="Next"
+            Text="Suivant"
+            OnClick="next"
+            Visible="<%= !$this->ResumeView->Active %>"
+            ValidationGroup="Group1"
+        />
+        <com:TLinkButton
+        	ID="Back"
+            Text="Précédent"
+            OnClick="back"
+            Visible="<%= !$this->RaceView->Active %>"
+        />
+        <com:TLinkButton
+        	ID="SavePerso"
+            Text="Enregistrer"
+            OnClick="createButtonClicked"
+            Visible="<%= $this->ResumeView->Active %>"
+        />
+        <com:THyperlink
+        	ID="Cancel"
+            Text="Annuler"
+            Target="_parent"
+            NavigateUrl="<%= $this->Service->constructUrl('Home') %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+ 
+	<div class="main-header">
+		Création du personnage
+    </div>
+
+    <com:TMultiView ID="PersoMultiView">
+
+	<!--Race du perso-->
+	<com:TView ID="RaceView">
+        <div class="main-header">
+            Race
+        </div>
+    	<div class="main-content">
+        	<br/><br/>
+            <table width="700">
+                <tr style="vertical-align:top">
+                    <td>
+                        <com:TActiveListBox ID="RaceList"  
+                            DataTextField="nom"
+                            DataValueField="id"
+                            AutoPostBack="true"
+                            OnSelectedIndexChanged="changeRaceDescription"
+                        />
+                    </td>
+                    <td>           
+                        <com:TActiveTextBox ID="RaceDescription"
+                            TextMode="MultiLine"
+                            Rows="6"
+                            Columns="50"
+                            ReadOnly="true"
+                        />
+                    </td>
+                </tr>
+            </table>            
+        </div>
+    </com:TView>
+    
+    <!--Classe du perso-->
+    <com:TView ID="ClasseView">
+    	<div class="main-header">
+            Classe
+        </div>
+    	<div class="main-content">             
+            <br/><br/>
+            <table width="700">
+                <tr style="vertical-align:top">
+                    <td>
+                        <com:TActiveListBox ID="ClasseList"  
+                            DataTextField="nom"
+                            DataValueField="id"
+                            AutoPostBack="true"
+                            OnSelectedIndexChanged="changeClasseDescription"
+                        />
+                    </td>
+                    <td>          
+                        <com:TActiveTextBox ID="ClasseDescription"
+                            TextMode="MultiLine"
+                            Rows="6"
+                            Columns="50"
+                            ReadOnly="true"
+                        />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </com:TView>
+    
+    <com:TView ID="AttributView">
+    	<div class="main-header">
+            Attributs
+        </div>
+    	<div class="main-content">
+            <!--Points restant pour attribut--> 
+            <br/><br/>
+            <span>Points restants:</span>
+            <com:TTextbox ID="PointAttribut"  
+                ReadOnly="true"
+                MaxLength="2"
+                Width="30px"
+            />
+            
+            <br/><br/>
+            <com:TTable
+                GridLines="Both"
+                CellSpacing="0"
+                CellPadding="2">
+              <com:TTableRow BackColor="white" ForeColor="black">
+                <com:TTableHeaderCell>Attribut</com:TTableHeaderCell>
+                <com:TTableHeaderCell>Score initial</com:TTableHeaderCell>
+                <com:TTableHeaderCell>Modificateur de race</com:TTableHeaderCell>
+                <com:TTableHeaderCell>Score total</com:TTableHeaderCell>
+              </com:TTableRow>
+              
+              <!--Force--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Force</com:TTableCell>
+                <com:TTableCell>
+                    <com:TActiveTextBox 
+                        ID="Force" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TActiveButton 
+                        ID="AddForceButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="force"
+                    />
+                    <com:TActiveButton 
+                        ID="SubForceButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="force"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="ForceModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="ForceTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+              
+              <!--Constitution--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Constitution</com:TTableCell>
+                <com:TTableCell>
+                    <com:TTextBox 
+                        ID="Constitution" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TButton 
+                        ID="AddConstButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="constitution"
+                    />
+                    <com:TButton 
+                        ID="SubConstButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="constitution"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="ConstitutionModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="ConstitutionTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+              
+              <!--Dextérité--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Dextérité</com:TTableCell>
+                <com:TTableCell>
+                    <com:TTextBox 
+                        ID="Dexterite" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TButton 
+                        ID="AddDexButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="dexterite"
+                    />
+                    <com:TButton 
+                        ID="SubDexButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="dexterite"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="DexteriteModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="DexteriteTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+              
+              <!--Intelligence--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Intelligence</com:TTableCell>
+                <com:TTableCell>
+                    <com:TTextBox 
+                        ID="Intelligence" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TButton 
+                        ID="AddIntelButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="intelligence"
+                    />
+                    <com:TButton 
+                        ID="SubIntelButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="intelligence"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="IntelligenceModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="IntelligenceTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+              
+              <!--Sagesse--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Sagesse</com:TTableCell>
+                <com:TTableCell>
+                    <com:TTextBox 
+                        ID="Sagesse" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TButton 
+                        ID="AddSagesseButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="sagesse"
+                    />
+                    <com:TButton 
+                        ID="SubSagesseButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="sagesse"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="SagesseModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="SagesseTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+              
+              <!--Charisme--> 
+              <com:TTableRow>
+                <com:TTableCell HorizontalAlign="Left">Charisme</com:TTableCell>
+                <com:TTableCell>
+                    <com:TTextBox 
+                        ID="Charisme" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                    <com:TButton 
+                        ID="AddCharismeButton"
+                        Text="+"
+                        OnCommand="modifyScore"
+                        CommandName="add"
+                        CommandParameter="charisme"
+                    />
+                    <com:TButton 
+                        ID="SubCharismeButton"
+                        Text="-"
+                        OnCommand="modifyScore"
+                        CommandName="sub"
+                        CommandParameter="charisme"
+                    />
+                </com:TTableCell>
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="CharismeModif" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>   
+                <com:TTableCell HorizontalAlign="Center">
+                    <com:TTextBox 
+                        ID="CharismeTotal" 
+                        ReadOnly="true" 
+                        MaxLength="2"
+                        Width="30px"
+                    />
+                </com:TTableCell>
+              </com:TTableRow>
+            </com:TTable>
+        </div>
+    </com:TView>
+    
+    <!-- Skills -->
+    <com:TView ID="SkillsView">
+    	<div class="main-header">
+            Compétences
+        </div>
+		<div class="main-content">
+        	<com:TLiteral Text="Points restants : " />
+            <com:TLiteral ID="RemainingPoints" />
+            <br/>
+            <com:TDataGrid
+            	ID="SkillTable"
+                DataKeyField="id"
+                AutoGenerateColumns="false"
+                OnItemCreated="skillItemCreated"
+                OnItemCommand="modifySkillPoints"
+                HeaderStyle.BackColor="white"
+                HeaderStyle.ForeColor="black"
+                GridLines="Both"
+                CellSpacing="0"
+                CellPadding="2">
+                
+                <com:TBoundColumn
+                	ID="SkillNameColumn"
+                    HeaderText="Nom de la compétence"
+                    DataField="name"
+                />
+                
+                <com:TTemplateColumn ID="SkillPointsColumn">
+                    <prop:HeaderTemplate>Rang</prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                    	 <com:TTextBox ID="SkillPoints" MaxLength="3" Columns="3" ReadOnly="true" />
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+                
+                <com:TButtonColumn
+                    ID="addSkillColumn"
+                    HeaderText="Ajouter"
+                    Text="+"
+                    ButtonType="PushButton"
+                    CommandName="addSkill" 
+            	/>
+                
+                <com:TButtonColumn
+                    ID="subSkillColumn"
+                    HeaderText="Enlever"
+                    Text="-"
+                    ButtonType="PushButton"
+                    CommandName="subSkill" 
+            	/>
+
+                <com:TTemplateColumn ID="SkillClassColumn">
+                    <prop:HeaderTemplate></prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                    	<com:TLabel ID="SkillClassLabel" />
+                    </prop:ItemTemplate>
+                </com:TTemplateColumn>
+
+            </com:TDataGrid>
+    
+        </div>
+    </com:TView>
+    
+    <!-- Feats -->
+    <com:TView ID="FeatsView">
+    	<div class="main-header">
+            Caractéristiques
+        </div>
+		<div class="main-content">
+        	<com:TLabel Text="Caractéristiques à attribuer"/>
+            <com:TTextBox ID="RemainingFeat" ReadOnly="true"/>
+            <br/>
+			<com:DSSelectionList 
+            	ID="Feats"
+                Label1.Text="Caractéristiques disponibles"
+                Label2.Text="Caractéristiques assignées à ce niveau"
+                List1.DataTextField="name"
+                List1.DataValueField="id"
+                List2.DataTextField="name"
+                List2.DataValueField="id"
+                List2.OnSelectedIndexChanged="Page.featSelectedChanged"
+            />
+            <br/>
+            <com:TLabel Text="Caractéristiques bonus"/>
+            <br/>
+            <com:TListBox
+            	ID="LevelFeats"
+                DataTextField="name"
+                DataValueField="id"
+                Enabled="true"
+            />
+            <br/>
+            <br/>
+            <com:TLabel Text="Caractéristiques déjà acquises"/>
+            <br/>
+            <com:TListBox
+            	ID="AssignedFeats"
+                DataTextField="name"
+                DataValueField="id"
+                Enabled="true"
+            />
+                 
+        </div>
+    </com:TView>
+
+    <com:TView ID="DetailsView">
+    	<div class="main-header">
+            Détails
+        </div>
+		<div class="main-content">
+        
+        	<com:TTable
+                CellSpacing="0"
+                CellPadding="2">
+                
+                <!--Nom du perso-->
+				<com:TTableRow>
+                	<com:TTableCell Width="200">Nom</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                    	<com:TTextBox ID="Nom" MaxLength="50"/>
+                        <com:TRequiredFieldValidator ControlToValidate="Nom" ErrorMessage="Champ requis" FocusOnError="true" ValidationGroup="Group1"/>
+                    </com:TTableCell>
+                </com:TTableRow>
+                
+                
+                <!--Sexe du perso-->
+                <com:TTableRow>
+                	<com:TTableCell>Sexe</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                    	<com:TDropDownList ID="Sexe">
+                            <com:TListItem Text="Homme" Value="M" />
+                            <com:TListItem Text="Femme" Value="F" />
+                        </com:TDropDownList>
+                    </com:TTableCell>
+                </com:TTableRow>
+             
+            
+            <!--
+            <com:TRequiredFieldValidator
+                ControlToValidate="Nom"
+                ErrorMessage="Veuillez indiquer un nom de personnage"
+                Display="Dynamic" />
+            -->
+                <!--Age du perso-->
+                <com:TTableRow VerticalAlign="Top">
+                    <com:TTableCell>Age</com:TTableCell>
+                    <com:TTableCell>
+                    	<com:TTextBox ID="BaseAgeTextBox" MaxLength="4"/>
+                        <br />
+                        <com:TRequiredFieldValidator 
+                        	ControlToValidate="BaseAgeTextBox" 
+                            ErrorMessage="Champ requis" 
+                            FocusOnError="true"
+                            Display="Dynamic" 
+                            ValidationGroup="GroupAge"
+                        />
+                    	<com:TRangeValidator
+                            DataType="Integer"
+                            MinValue="<%= $this->Race->minAge %>"
+                            MaxValue="<%= $this->Race->maxAge %>"
+                            Text="L'age doit être compris entre <%= $this->Race->minAge %> et <%= $this->Race->maxAge %>."
+							ControlToValidate="BaseAgeTextBox"
+                            Display="Dynamic"
+                            ValidationGroup="GroupAge"                       	
+                        />                        
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TButton ID="RollAge" Text="Lancer les dés" OnClick="rollAge" ValidationGroup="GroupAge"/>
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TTextBox ID="AgeTextBox" MaxLength="4" ReadOnly="true"/>
+                    </com:TTableCell>
+                </com:TTableRow>
+            
+                <!--Taille du perso-->
+                <com:TTableRow>
+                    <com:TTableCell>Taille (en cm)</com:TTableCell>
+                    <com:TTableCell>
+                        <com:TTextBox ID="BaseTailleTextBox" MaxLength="4" ReadOnly="true" Text="<%= $this->Race->tailleMoyenne %>" />
+                        <br />
+                        <com:TRequiredFieldValidator 
+                        	ControlToValidate="BaseTailleTextBox" 
+                            ErrorMessage="Champ requis" 
+                            FocusOnError="true"
+                            Display="Dynamic" 
+                            ValidationGroup="GroupTaille"
+                        />
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TButton ID="RollTaille" Text="Lancer les dés" OnClick="rollTaille" ValidationGroup="GroupTaille"/>
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TTextBox ID="TailleTextBox" MaxLength="4" ReadOnly="true"/>
+                    </com:TTableCell>
+                </com:TTableRow>
+            
+            
+                <!--Poids du perso-->
+                <com:TTableRow>
+                    <com:TTableCell>Poids (en livres)</com:TTableCell>
+                    <com:TTableCell>
+                        <com:TTextBox ID="BasePoidsTextBox" MaxLength="4" ReadOnly="true" Text="<%= $this->Race->poidsMoyen %>"/>
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TButton ID="RollPoids" Text="Lancer les dés" OnClick="rollPoids"/>
+                    </com:TTableCell>
+                    <com:TTableCell>
+                        <com:TTextBox ID="PoidsTextBox" MaxLength="4" ReadOnly="true"/>
+                    </com:TTableCell>
+                </com:TTableRow>
+            
+                <!--Alignement du perso-->
+                <com:TTableRow>
+                    <com:TTableCell>Alignement</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                        <com:TDropDownList ID="Alignement"  
+                            DataTextField="nom"
+                            DataValueField="id"
+                        />
+                    </com:TTableCell>
+                </com:TTableRow>                
+            
+            	<!--Region du perso--> 
+				<com:TTableRow>
+                    <com:TTableCell>Région</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                        <com:TDropDownList ID="Region"  
+                            DataTextField="nom"
+                            DataValueField="id"
+                        />
+                    </com:TTableCell>
+                </com:TTableRow>
+            
+            
+                <!--Apparence du perso--> 
+                <com:TTableRow>
+                    <com:TTableCell>Apparence physique</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                        <com:TTextBox ID="ApparenceTextBox"
+                            TextMode="MultiLine"
+                            Rows="6"
+                            Columns="50"
+                        />
+                    </com:TTableCell>
+                </com:TTableRow>
+            
+                <!--Personnalité du perso--> 
+                <com:TTableRow>
+                    <com:TTableCell>Personnalité</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                        <com:TTextBox ID="PersonnaliteTextBox"
+                            TextMode="MultiLine"
+                            Rows="6"
+                            Columns="50"
+                        />
+                    </com:TTableCell>
+                </com:TTableRow>
+                
+                
+                <!--Histoire du perso--> 
+                <com:TTableRow>
+                    <com:TTableCell>Histoire</com:TTableCell>
+                    <com:TTableCell ColumnSpan="3">
+                        <com:TTextBox ID="BackgroundTextBox"
+                            TextMode="MultiLine"
+                            Rows="6"
+                            Columns="50"
+                        />
+                    </com:TTableCell>
+                </com:TTableRow>
+                
+            </com:TTable>
+                
+		</div>
+	</com:TView>
+    
+    <com:TView ID="ImageView">
+		<div class="main-content">
+        	<com:Application.Portlets.ImagePortlet ID="ImagePortlet" WithRadioButton="true"/>
+        </div>
+	</com:TView>
+    
+    <com:TView ID="ResumeView">
+    	<div class="main-header">
+			Résumé
+    	</div>
+    	<div class="main-header">
+			Race
+    	</div>
+        <div class="main-content">
+        	<com:TLiteral Text="Race : <%= $this->RaceList->SelectedItem->Text %>" />
+        </div>
+        <div class="main-header">
+			Classe
+    	</div>
+        <div class="main-content">
+            <com:TLiteral Text="Classe : <%= $this->ClasseList->SelectedItem->Text %>" />
+        </div>
+        <div class="main-header">
+			Attributs
+    	</div>
+        <div class="main-content">
+        	<com:TTable GridLines="Both" CellSpacing="0" CellPadding="2">
+                <com:TTableRow BackColor="white" ForeColor="black">
+                    <com:TTableHeaderCell>Attribut</com:TTableHeaderCell>
+                    <com:TTableHeaderCell>Score</com:TTableHeaderCell>
+                </com:TTableRow>
+                
+                <com:TTableRow>
+                    <com:TTableCell>Force</com:TTableCell>
+                    <com:TTableCell><%= $this->ForceTotal->Text %></com:TTableCell>
+                </com:TTableRow>
+                <com:TTableRow>
+                    <com:TTableCell>Constitution</com:TTableCell>
+                    <com:TTableCell><%= $this->ConstitutionTotal->Text %></com:TTableCell>
+                </com:TTableRow>
+                <com:TTableRow>
+                    <com:TTableCell>Dextérité</com:TTableCell>
+                    <com:TTableCell><%= $this->DexteriteTotal->Text %></com:TTableCell>
+                </com:TTableRow>              
+                <com:TTableRow>
+                    <com:TTableCell>Intelligence</com:TTableCell>
+                    <com:TTableCell><%= $this->IntelligenceTotal->Text %></com:TTableCell>
+                </com:TTableRow>
+                <com:TTableRow>
+                    <com:TTableCell>Sagesse</com:TTableCell>
+                    <com:TTableCell><%= $this->SagesseTotal->Text %></com:TTableCell>
+                </com:TTableRow>
+                <com:TTableRow>
+                    <com:TTableCell>Charisme</com:TTableCell>
+                    <com:TTableCell><%= $this->CharismeTotal->Text %></com:TTableCell>
+                </com:TTableRow>
+            </com:TTable>              
+        </div>
+        <div class="main-header">
+			Compétences
+    	</div>
+        <div class="main-content">
+        	<com:TDataGrid ID="SkillSummaryTable" 
+            	DataKeyField="id"
+            	AutoGenerateColumns="false"
+                GridLines="Both"
+                CellSpacing="0"
+                CellPadding="2"
+            >
+            	<com:TBoundColumn
+                    DataField="name"
+                />
+                <com:TBoundColumn
+                    DataField="rank"
+                />
+            </com:TDataGrid>
+        </div>
+        <div class="main-header">
+			Caractéristiques
+    	</div>
+        <div class="main-content">
+        	<com:TDataGrid
+                ID="FeatSummaryTable"
+                DataKeyField="id"
+                AutoGenerateColumns="false"
+                GridLines="Both"
+                CellSpacing="0"
+                CellPadding="2"
+            >                              
+                <com:TBoundColumn
+                    DataField="name"
+                />
+            </com:TDataGrid>
+        </div>
+        <div class="main-header">
+			Détails
+    	</div>
+        <div class="main-content">
+        	<com:TTable>
+            	<com:TTableRow>
+                    <com:TTableCell>
+                        <com:TLiteral Text="Nom : <%= $this->Nom->Text %>" /><br/>
+                        <com:TLiteral Text="Sexe : <%= $this->Sexe->SelectedItem->Text %>" /><br/>
+                        <com:TLiteral Text="Age : <%= $this->AgeTextBox->Text %>" /><br/>
+                        <com:TLiteral Text="Taille : <%= $this->TailleTextBox->Text %>" /><br/>
+                        <com:TLiteral Text="Poids : <%= $this->PoidsTextBox->Text %>" /><br/>
+                        <com:TLiteral Text="Alignement : <%= $this->Alignement->SelectedItem->Text %>" /><br/>
+                        <com:TLiteral Text="Région : <%= $this->Region->SelectedItem->Text %>" /><br/>
+                        <com:TLiteral Text="Apparence : <%= $this->ApparenceTextBox->Text %>" /><br/>
+                        <com:TLiteral Text="Personnalité : <%= $this->PersonnaliteTextBox->Text %>" /><br/>
+                        <com:TLiteral Text="Background : <%= $this->BackgroundTextBox->Text %>" /><br/>
+                    </com:TTableCell>
+                    <com:TTableCell HorizontalAlign="Right">
+                    	<com:TImage ImageUrl="<%= $this->ImagePortlet->getSelectedImage() %>" />
+                    </com:TTableCell>
+                </com:TTableRow>
+            </com:TTable>
+        </div>
+        
+	</com:TView>
+
+	</com:TMultiView>
+ 
+</com:TContent> 

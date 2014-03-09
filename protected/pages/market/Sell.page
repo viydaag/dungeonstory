@@ -1,0 +1,147 @@
+<%@ Title="Marché" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Marché</h2>
+         <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.Buy', array('shopId'=>$this->Shop->id)) %>"
+            Text="Acheter"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.Sell', array('shopId'=>$this->Shop->id)) %>"
+            Text="Vendre"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+        <br/>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.ListShop') %>"
+            Text="Retour aux magasins"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Vendre
+    </div>
+    
+    <div class="main-content">
+
+        <com:TDataGrid
+            ID="SellTable"
+            DataKeyField="equipmentId"
+            AutoGenerateColumns="false"
+            OnItemCommand="itemCommand"
+            HeaderStyle.BackColor="white"
+            HeaderStyle.ForeColor="black"
+            GridLines="Both"
+            CellSpacing="0"
+            CellPadding="2">
+
+            <com:TTemplateColumn ID="ItemColumn">
+                <prop:HeaderTemplate>Item</prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <com:TLightWindow 
+                        Href="#<%=$this->LightWindowContent->getClientID()%>"
+                        Title="<%# $this->Parent->Data->equipment->name %>"
+                        Height="350"
+                        Width="600"
+                        Top="300"
+                    />
+                    <com:TPanel ID="LightWindowContent">
+                        <div class="form-center">
+                            <div class="form-row">
+                                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                                <com:TLabel ID="Name" Text="<%# $this->Parent->Data->equipment->name %>" />
+                            </div>
+                            <div class="form-row">
+                                <com:TLabel ID="DescriptionLabel" Text="Description : " ForControl="Description" />
+                                <com:TLabel ID="Description" Text="<%# $this->Parent->Data->equipment->description %>" />
+                            </div>
+                            <div class="form-row">
+                                <com:TLabel ID="WeightLabel" Text="Poids : " ForControl="Weight" />
+                                <com:TLabel ID="Weight" Text="<%# $this->Parent->Data->equipment->weight %>" />
+                            </div>
+                        </div>
+                        <br/>
+                        </div>
+                    </com:TPanel>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+
+            <com:TTemplateColumn ID="ItemCostColumn" ItemStyle.HorizontalAlign="Center">
+                <prop:HeaderTemplate>Prix de vente</prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <com:TActiveLabel ID="ItemCost" Text="<%# $this->Parent->Data->sellableValue %>" />
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+    
+
+            <com:TTemplateColumn ID="ItemQuantityOwnedColumn" ItemStyle.HorizontalAlign="Center">
+                <prop:HeaderTemplate>Quantité en inventaire</prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <com:TActiveLabel ID="ItemQuantityOwned" Text="<%# $this->Parent->Data->quantity %>"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+
+            <com:TTemplateColumn ID="SliderColumn">
+                <prop:HeaderTemplate>Quantité</prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <com:TSlider ID="QuantitySlider" 
+                        MinValue="0" 
+                        MaxValue="<%# $this->Parent->Data->quantity %>" 
+                        Direction="Horizontal" 
+                        Value="0" 
+                        AutoPostBack="false"
+                        StepSize="1"
+                    >
+                        <prop:ClientSide.onSlide>
+                            $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
+                            $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;                            
+                        </prop:ClientSide.onSlide>
+                        <prop:ClientSide.onChange>
+                            $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
+                            $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;
+                            $('<%=$this->Parent->ItemQuantityOwnedColumn->ItemQuantityOwned->ClientId%>').innerHTML = $('<%=$this->Parent->ItemQuantityOwnedColumn->ItemQuantityOwned->ClientId%>').innerHTML - value;
+                        </prop:ClientSide.onChange>
+                    </com:TSlider>
+                    <com:TLabel ID="SliderResult"><%= $this->QuantitySlider->Value %></com:TLabel>                   
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+            
+    
+            <com:TTemplateColumn ID="ItemTotalCostColumn" ItemStyle.HorizontalAlign="Center">
+                <prop:HeaderTemplate>Prix total</prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <com:TTextBox ID="ItemTotalCost" MaxLength="10" Columns="7" ReadOnly="true" Style="text-align:right"/>
+                </prop:ItemTemplate>
+            </com:TTemplateColumn>
+            
+            <com:TButtonColumn
+                ID="SellItemColumn"
+                HeaderText=""
+                Text="Vendre"
+                ButtonType="PushButton"
+                CommandName="sellItem"
+                ItemStyle.HorizontalAlign="Center" 
+            />
+    
+        </com:TDataGrid>
+             
+	</div>
+ 
+</com:TContent>

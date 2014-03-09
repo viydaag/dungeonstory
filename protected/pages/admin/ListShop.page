@@ -1,0 +1,38 @@
+<%@ Title="Marché" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Marché</h2>
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Magasins
+    </div>
+    
+    <div class="main-content">
+
+        <com:TRepeater ID="ShopRepeater" EnableViewState="false">             
+            <prop:ItemTemplate>
+                <com:THyperLink
+                    Text="<%# $this->Data->name %>"
+                    NavigateUrl="<%= $this->Service->constructUrl('admin.EditShop', array('shopId'=>$this->Data->id)) %>"
+                    Target="_parent"
+                    CssClass="list-item"
+                />
+            </prop:ItemTemplate>             
+        </com:TRepeater>
+             
+	</div>
+ 
+</com:TContent>

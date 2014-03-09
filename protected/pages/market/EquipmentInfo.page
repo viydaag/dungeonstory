@@ -1,0 +1,52 @@
+<%@ Title="Marché" %>
+<!--
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Marché</h2>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('market.Buy') %>"
+            Text="Acheter"
+            Target="_parent"
+            Visible="<%= $this->User->Profile->isActive() %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+-->
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		<com:TLiteral Text="<%= $this->Equipment->name %>" />
+    </div>
+    
+    <div class="main-content">
+    
+    	<table>
+        	<tr>
+            	<td width="30%">Nom</td>
+                <td width="70%"><%= $this->Equipment->name %></td>
+            </tr>
+            <tr>
+            	<td>Description</td>
+                <td><%= $this->Equipment->description %></td>
+            </tr>
+            <tr>
+            	<td>Poids</td>
+                <td><%= $this->Equipment->weight %></td>
+            </tr>
+            <tr>
+            	<td>Prix</td>
+                <td><%= $this->Equipment->cost %></td>
+            </tr>
+        </table>
+                
+	</div>
+    
+</com:TContent>

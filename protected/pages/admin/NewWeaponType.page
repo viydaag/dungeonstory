@@ -1,0 +1,95 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Types d'arme" 
+        	SaveButton.OnClick="Page.saveButtonClicked" 
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListWeaponType') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouveau type d'arme
+    </div>
+    
+    <div class="main-content">
+    	<div class="form">
+            <div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                <com:TTextBox ID="Name" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description de base : " ForControl="Description" />
+                <com:TTextBox ID="Description" ReadOnly="false" TextMode="MultiLine" Rows="3" Columns="60" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="BaseWeightLabel" Text="Poids de base : " ForControl="BaseWeight" />
+                <com:TTextBox ID="BaseWeight" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="UseLabel" Text="Usage : " ForControl="UseList" />
+                <com:TActiveDropDownList ID="UseList" OnSelectedIndexChanged="useChanged"> 
+                    <com:TListItem Value="0" Text="Combat rapproché" />
+                    <com:TListItem Value="1" Text="Combat à distance" />
+                </com:TActiveDropDownList>
+            </div>
+            <com:TActivePanel ID="RangeTypeDiv" CssClass="form-row">
+                <com:TActiveLabel ID="RangeTypeLabel" Text="Type d'arme à distance : " ForControl="RangeTypeList" />
+                <com:TActiveDropDownList ID="RangeTypeList"> 
+                    <com:TListItem Value="0" Text="Projectile" />
+                    <com:TListItem Value="1" Text="Lancé" />
+                </com:TActiveDropDownList>
+            </com:TActivePanel>
+            <com:TActivePanel ID="RangeIncrementDiv" CssClass="form-row">
+                <com:TActiveLabel ID="RangeIncrementLabel" Text="Distance maximale sans pénalité : " ForControl="RangeIncrement" />
+                <com:TActiveTextBox ID="RangeIncrement" />
+            </com:TActivePanel>
+            <div class="form-row">
+                <com:TLabel ID="TypeLabel" Text="Type : " ForControl="TypeList" />
+                <com:TDropDownList ID="TypeList"> 
+                    <com:TListItem Value="0" Text="Arme légère" />
+                    <com:TListItem Value="1" Text="Arme à une main" />
+                    <com:TListItem Value="2" Text="Arme à deux mains" />
+                </com:TDropDownList>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Compétence : " ForControl="ProficiencyList"/>
+                <com:TDropDownList ID="ProficiencyList"> 
+                    <com:TListItem Value="0" Text="Arme simple" />
+                    <com:TListItem Value="1" Text="Arme martiale" />
+                    <com:TListItem Value="2" Text="Arme exotique" />
+                </com:TDropDownList>
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="BaseDamageLabel" Text="Dégât de base : " ForControl="BaseDamage" />
+                <com:TTextBox ID="BaseDamage" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Type de dégât : " ForControl="DamageTypeList" />
+                <com:TDropDownList ID="DamageTypeList" DataTextField="name" DataValueField="id"> 
+                    
+                </com:TDropDownList>
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Arme double" ForControl="IsDouble" />
+                <com:TCheckBox ID="IsDouble" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Arme longue portée" ForControl="IsReach" />
+                <com:TCheckBox ID="IsReach" />
+            </div>
+        </div>
+        <com:TJavascriptLogger/>
+    </div>
+    
+</com:TContent>

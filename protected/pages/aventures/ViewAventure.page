@@ -1,0 +1,55 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Aventure</h2>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.EditAventure', array('aventureId'=>$this->Aventure->id)) %>"
+            Text="Modifier"
+            Target="_parent"
+            Visible="<%= $this->canEdit() %>"
+        />
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.ListMessage', array('aventureId'=>$this->Aventure->id)) %>"
+            Text="Messages"
+            Target="_parent"
+        />
+        <com:TLinkButton 
+            ID="JoinAventureButton"
+            Text="Joindre l'aventure"
+            OnClick="joinAventure"
+            Visible="<%= $this->isUserAllowToJoinAventure() %>"            
+        />
+        <com:TLinkButton 
+            ID="QuitAventureButton"
+            Text="Quitter l'aventure"
+            OnClick="quitAventure"
+            Visible="<%= $this->isUserAllowToQuitAventure() %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		<com:TLiteral Text="<%= $this->Aventure->nom %>" />
+    </div>
+    
+    <div class="main-content">
+        <p>
+        Description:
+        <com:DSLiteral Text="<%= $this->Aventure->description %>" HLengh="70"/><br/>
+        Créé par:
+        <com:TLiteral Text="<%= $this->Aventure->user->pseudo %>" /><br/>
+        Date de création
+        <com:TLiteral Text="<%= $this->Aventure->dateCreation %>" />
+        </p>
+	</div>
+ 
+</com:TContent>

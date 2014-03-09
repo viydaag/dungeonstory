@@ -1,0 +1,106 @@
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <com:SaveCancelPortlet 
+        	Title="Types d'armure" 
+        	SaveButton.OnClick="Page.saveButtonClicked"
+            SaveButton.ValidationGroup="Group1"
+            CancelButton.NavigateUrl="<%= $this->Service->constructUrl('admin.ListArmorType') %>" 
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Nouveau type d'armure
+    </div>
+    
+    <div class="main-content">
+
+        <div class="form">
+        	<div class="form-row">
+                <com:TLabel ID="NameLabel" Text="Nom : " ForControl="Name" />
+                <com:TTextBox ID="Name" />
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="Name" Text="Champ requis" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="DescLabel" Text="Description de base : " ForControl="Description" />
+                <com:TTextBox ID="Description" TextMode="MultiLine" Rows="10" Columns="40" />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="WeightLabel" Text="Poids de base : " ForControl="BaseWeight" />
+                <com:TTextBox ID="BaseWeight" CssClass="validator" />
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="Name" Text="Champ requis" CssClass="validator" />
+                <com:TDataTypeValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="BaseWeight"
+                    DataType="Integer"
+                    Text="La valeur doit être un nombre entier"
+                    Display="Dynamic"
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="TypeLabel" Text="Type : " ForControl="TypeList" />
+                <com:TDropDownList ID="TypeList"> 
+                    <com:TListItem Value="0" Text="Armure légère" />
+                    <com:TListItem Value="1" Text="Armure medium" />
+                    <com:TListItem Value="2" Text="Armure lourde" />
+                    <com:TListItem Value="3" Text="Bouclier" />
+                </com:TDropDownList>
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="MaxDexBonusLabel" Text="Bonus maximum de dextérité : " ForControl="MaxDexBonus" />
+                <com:TTextBox ID="MaxDexBonus" />
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="MaxDexBonus" Text="Champ requis" />
+                <com:TDataTypeValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="MaxDexBonus"
+                    DataType="Integer"
+                    Text="La valeur doit être un nombre entier" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ACLabel" Text="Classe d'armure de base : " ForControl="BaseAC" />
+                <com:TTextBox ID="BaseAC" />
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="BaseAC" Text="Champ requis" />
+                <com:TDataTypeValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="BaseAC"
+                    DataType="Integer"
+                    Text="La valeur doit être un nombre entier" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ArmorCheckPenaltyLabel" Text="Pénalité d'armure sur les compétences : " ForControl="BaseArmorCheckPenalty" />
+                <com:TTextBox ID="BaseArmorCheckPenalty" />
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="BaseArmorCheckPenalty" Text="Champ requis" />
+                <com:TDataTypeValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="BaseArmorCheckPenalty"
+                    DataType="Integer"
+                    Text="La valeur doit être un nombre entier" 
+                />
+            </div>
+            <div class="form-row">
+                <com:TLabel ID="ArcaneSpellFailureLabel" Text="Pourcentage d'échec de sort d'arcane : " ForControl="BaseArcaneSpellFailure" />
+                <com:TTextBox ID="BaseArcaneSpellFailure" />%
+                <com:TRequiredFieldValidator ValidationGroup="Group1" ControlToValidate="BaseArcaneSpellFailure" Text="Champ requis" />
+                <com:TDataTypeValidator
+                    ValidationGroup="Group1"
+                    ControlToValidate="BaseArcaneSpellFailure"
+                    DataType="Integer"
+                    Text="La valeur doit être un nombre entier" 
+                />
+            </div>
+        </div>
+    </div>
+    
+</com:TContent>

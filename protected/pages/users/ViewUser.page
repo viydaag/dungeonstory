@@ -1,0 +1,55 @@
+<%@ Title="View User Profile" %>
+
+<com:TContent ID="sidebar">
+
+    <div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Profil</h2>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('users.EditUser', array('userId'=>$this->User->Profile->id)) %>"
+            Text="Modifier"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+    <div class="main-header">
+		    Profil
+    </div>
+
+    <div class="main-content">
+        <div class="form">
+            <div class="form-row">
+                <com:TLabel Text="Pseudo : " ForControl="Pseudo" />
+                <com:TLiteral ID="Pseudo" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Nom : " ForControl="Name" />
+                <com:TLiteral ID="Name" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Email : " ForControl="Email" />
+                <com:TLiteral ID="Email" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Role : " ForControl="Role" />
+                <com:TLiteral ID="Role" />
+            </div>
+            <div class="form-row">
+                <com:TLabel Text="Joueur depuis : " ForControl="Since" />
+                <com:TLiteral ID="Since" />
+            </div>
+        </div>
+    </div>
+
+
+</com:TContent>

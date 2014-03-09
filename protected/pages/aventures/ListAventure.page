@@ -1,0 +1,50 @@
+<%@ Title="Liste Aventure" %>
+
+<com:TContent ID="sidebar">
+
+	<div class="sideheader">    
+    </div>
+
+    <div class="sidecontent">
+        <h2>Aventure</h2>
+        <com:THyperLink
+            NavigateUrl="<%= $this->Service->constructUrl('aventures.NewAventure') %>"
+            Text="Cr&eacute;er"
+            Target="_parent"
+            Visible="<%= !$this->User->IsGuest && $this->User->hasPerso() && $this->User->Profile->isActive() %>"
+        />
+    </div>
+
+    <div class="sidefooter">
+    </div>
+    
+</com:TContent>
+
+<com:TContent ID="Main">
+
+	<div class="main-header">
+		Aventures
+    </div>
+    
+    <div class="main-content">
+
+        <table border="1" cellspacing="1">
+            <tr>
+                <th width="400" align="center">Nom</th>
+                <th width="200" align="center">Statut</th>
+                <th width="100" align="center">Membre</th>
+                <th width="100" align="center"></th>
+            </tr>
+            <com:TRepeater ID="RepeaterAventure"
+                ItemRenderer="Application.pages.aventures.AventureRenderer"
+                AllowPaging="true"
+                AllowCustomPaging="true"
+                PageSize="5"
+            />
+        </table>
+         
+        <com:TPager ControlToPaginate="RepeaterAventure" OnPageIndexChanged="pageChanged" />
+        
+	</div>
+ 
+</com:TContent>
