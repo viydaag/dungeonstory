@@ -6,6 +6,7 @@ class ShopEquipmentRecord extends TActiveRecord
     public $shopId;
     public $equipmentId;
 	public $quantity;
+    public $unitPrice;
  
 	public static $RELATIONS=array
     (

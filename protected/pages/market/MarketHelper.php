@@ -55,11 +55,9 @@ class MarketHelper
 				"FROM equipment ".
 				"INNER JOIN weapon ON equipment.id = weapon.id ".
 				"INNER JOIN shopEquipment ON equipment.id = shopEquipment.equipmentId ".
-				"INNER JOIN shop ON shopEquipment.shopId = shop.id ";
-				//"WHERE shop.id = " . $shopId . " AND equipment.type = " . $type;
-			var_dump($sql);
+				"INNER JOIN shop ON shopEquipment.shopId = shop.id ".
+				"WHERE shop.id = " . $shopId . " AND equipment.type = " . $type;
 			$data = TActiveRecord::finder('ShopWeaponEquipment')->findAllBySql($sql);
-			var_dump($data);
 		}
 		else if ($type == EquipmentRecord::ARMOR_TYPE)
 		{
@@ -73,16 +71,15 @@ class MarketHelper
 		}
 		else
 		{
-			$sql = "SELECT equipment.*, shopEquipment.* FROM equipment ".
+			$sql = "SELECT equipment.*, shopEquipment.* ".
+				"FROM equipment ".
 				"INNER JOIN shopEquipment ON equipment.id = shopEquipment.equipmentId ".
-				"INNER JOIN shop ON shopEquipment.shopId = shop.id ";
-				//"WHERE shop.id = " . $shopId . " AND equipment.type = " . $type;
-			//var_dump($sql);
+				"INNER JOIN shop ON shopEquipment.shopId = shop.id ".
+				"WHERE shop.id = " . $shopId . " AND equipment.type = " . $type;
 			$data = TActiveRecord::finder('ShopEquipment')->findAllBySql($sql);
-			var_dump($data);
 		}
 
-		
+		return $data;
 	}
 }
 ?>

@@ -117,7 +117,7 @@
                     <com:TActiveTemplateColumn ID="ItemCostColumn">
                         <prop:HeaderTemplate>Prix</prop:HeaderTemplate>
                         <prop:ItemTemplate>
-                            <com:TActiveLabel ID="ItemCost" Text="<%# $this->Parent->Data->cost %>"/>
+                            <com:TActiveLabel ID="ItemCost" Text="<%# $this->Parent->Data->unitPrice %>"/>
                         </prop:ItemTemplate>
                     </com:TActiveTemplateColumn>
 

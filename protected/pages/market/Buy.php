@@ -13,8 +13,8 @@ class Buy extends DSPage
 			//$data = MarketHelper::getAllPurchasableWeapons();
 			//$data = ShopEquipmentRecord::finder()->withEquipment('type = ?', EquipmentRecord::WEAPON_TYPE)->findAllByShopId($this->Shop->id);
 			//$data = EquipmentRecord::finder()->withShopEquipment('shopId = ?', $this->Shop->id)->findAllByType(EquipmentRecord::WEAPON_TYPE);
-			$data = MarketHelper::getAllPurchasableItemsForShop($this->Shop->id, EquipmentRecord::RING_TYPE);
-			// var_dump($data);
+			$data = MarketHelper::getAllPurchasableItemsForShop($this->Shop->id, EquipmentRecord::WEAPON_TYPE);
+			var_dump($data);
 			$this->WeaponTable->DataSource = $data;
 			$this->WeaponTable->dataBind();
 			$this->WeaponTable->SelectedItemIndex=-1;
@@ -70,25 +70,6 @@ class Buy extends DSPage
 		$this->onItemChanged($item);
 	}
 
-	public function sliderValueChanged($sender, $param)
-	{
-		// get the item
-		$item = $sender->NamingContainer;
-		//echo Prado::varDump($param);
-		//$item->SliderColumn->SliderResult->setText($sender->getValue());
-		$item->ItemQuantityColumn->ItemQuantity->Text = $sender->getValue();
-		$item->ItemTotalCostColumn->ItemTotalCost->Text = $sender->getValue() * (int)$item->ItemCostColumn->ItemCost->Text;
-		//echo Prado::varDump($param);
-		//var_dump($sender);
-		//var_dump($param);
-		//$this->WeaponTable->SliderResult->setText($sender->getValue());
-	 	// var_dump($sender);
-		// $item->ItemQuantityColumn->ItemQuantity->Text = $this->QuantitySlider->Value;
-		// $item->ItemTotalCostColumn->ItemTotalCost->Text = $this->QuantitySlider->Value * (int)$item->ItemCostColumn->Text;
-		// $item->ItemQuantityColumn->ItemQuantity->Text = $sender->getValue();
-		// $item->ItemTotalCostColumn->ItemTotalCost->Text = $sender->getValue() * (int)$item->ItemCostColumn->Text;
-	}
-
 	public function selectItem($sender, $param)
     {
         $data = MarketHelper::getAllPurchasableWeapons();
@@ -96,25 +77,14 @@ class Buy extends DSPage
         $this->WeaponTable->dataBind();
     }
 	
-	private function onItemChanged($item)
-	{
-		// $item->ItemTotalCostColumn->ItemTotalCost->Text = (int)$item->ItemQuantityColumn->ItemQuantity->Text * (int)$item->ItemCostColumn->Text;
-		// //$item->ItemTotalCostColumn->Text = (int)$item->ItemQuantityColumn->Text * (int)$item->ItemCostColumn->Text;
-		// $addButton = $item->AddItemColumn;
-		// $removeButton = $item->RemoveItemColumn;
-		// //DSHelper::disableObjectOnValue($addButton, (int)$item->ItemQuantityColumn->ItemQuantity->Text, NULL, (int)$item->ItemQuantityOwnedColumn->Text);
-		// //DSHelper::disableObjectOnValue($removeButton, (int)$item->ItemQuantityColumn->ItemQuantity->Text, 0, NULL);
-		// DSHelper::disableObjectOnValue($removeButton, (int)$item->ItemQuantityColumn->Text, 0, NULL);
-	}
-	
 	public function buyItem($item) 
 	{
 		$this->WeaponTable->SelectedItemIndex = -1;
 		$equipmentId = $this->WeaponTable->DataKeys->itemAt($item->ItemIndex);
 		$persoId = $this->User->Perso->id;
 		$shopId = $this->Shop->id;
-		$quantity = (int)$item->ItemQuantityColumn->ItemQuantity->SafeText;
-		//$quantity = (int)$item->ItemQuantityColumn->SafeText;
+		$quantity = $item->SliderColumn->QuantitySlider->Value;
+		$price = $item->ItemCostColumn->ItemCost->SafeText;
 		
 		$finder = ShopEquipmentRecord::finder();
 		$finder->DbConnection->Active = true;
@@ -124,11 +94,13 @@ class Buy extends DSPage
 		{
 			//add X item to perso inventory
 			$persoEquipmentRecord = PersoEquipmentRecord::finder()->findByPersoIdAndEquipmentId($persoId, $equipmentId);
-			if ($persoEquipmentRecord === NULL) {
+			if ($persoEquipmentRecord === NULL) 
+			{
 				$persoEquipmentRecord = new PersoEquipmentRecord();
 				$persoEquipmentRecord->persoId = $persoId;
 				$persoEquipmentRecord->equipmentId = $equipmentId;
 				$persoEquipmentRecord->quantity = $quantity;
+				$persoEquipmentRecord->sellableValue = $price - ($price * 0.1);
 			} 
 			else 
 			{
@@ -144,7 +116,7 @@ class Buy extends DSPage
 				{
 					$shopEquipmentRecord->quantity = $persoEquipmentRecord->quantity - $quantity;
 					$shopEquipmentRecord->save();
-				} 
+				}
 				else
 				{
 					$shopEquipmentRecord->delete();
