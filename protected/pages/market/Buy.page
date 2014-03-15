@@ -46,7 +46,7 @@
         <com:TTabPanel>
         	<com:TTabView Caption="Armes">
 
-                <com:TActiveDataGrid
+                <com:TDataGrid
                     ID="WeaponTable"
                     DataKeyField="id"
                     AutoGenerateColumns="false"
@@ -58,7 +58,7 @@
                     CellSpacing="0"
                     CellPadding="2">
 
-                    <com:TActiveTemplateColumn ID="ItemColumn">
+                    <com:TTemplateColumn ID="ItemColumn">
                         <prop:HeaderTemplate>Lien</prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <com:TLightWindow 
@@ -103,23 +103,23 @@
                                         <com:TLabel Text="Type de dégât additionel: " ForControl="AdditionalDamageType" />
                                         <com:TLabel ID="AdditionalDamageType" Text="<%# $this->Parent->Data->additionalDamageType->name %>" /> 
                                     </div>
-                                    <com:TActivePanel ID="WeaponMagicalBonusDiv" CssClass="form-row">
+                                    <com:TPanel ID="WeaponMagicalBonusDiv" CssClass="form-row">
                                         <com:TLabel ID="WeaponMagicalBonusLabel" Text="Bonus magique arme " ForControl="WeaponMagicalBonus" />
                                         <com:TLabel ID="WeaponMagicalBonus" Text="<%# $this->Parent->Data->magicalBonus %>"/>
-                                    </com:TActivePanel>
+                                    </com:TPanel>
                                 </div>
                                 <br/>
                                 </div>
                             </com:TPanel>
                         </prop:ItemTemplate>
-                    </com:TActiveTemplateColumn>
+                    </com:TTemplateColumn>
 
-                    <com:TActiveTemplateColumn ID="ItemCostColumn">
+                    <com:TTemplateColumn ID="ItemCostColumn">
                         <prop:HeaderTemplate>Prix</prop:HeaderTemplate>
                         <prop:ItemTemplate>
-                            <com:TActiveLabel ID="ItemCost" Text="<%# $this->Parent->Data->unitPrice %>"/>
+                            <com:TLabel ID="ItemCost" Text="<%# $this->Parent->Data->unitPrice %>"/>
                         </prop:ItemTemplate>
-                    </com:TActiveTemplateColumn>
+                    </com:TTemplateColumn>
 
                     <com:TTemplateColumn ID="SliderColumn">
                         <prop:HeaderTemplate>Quantité</prop:HeaderTemplate>
@@ -145,14 +145,14 @@
                         </prop:ItemTemplate>
                     </com:TTemplateColumn>
 
-                    <com:TActiveTemplateColumn ID="ItemTotalCostColumn">
+                    <com:TTemplateColumn ID="ItemTotalCostColumn">
                         <prop:HeaderTemplate>Prix total</prop:HeaderTemplate>
                         <prop:ItemTemplate>
-                            <com:TActiveTextBox ID="ItemTotalCost" Text="0" MaxLength="10" Columns="7" ReadOnly="true" Style="text-align:right"/>
+                            <com:TActiveTextBox ID="ItemTotalCost" Text="0" ReadOnly="true" Style="text-align:right"/>
                         </prop:ItemTemplate>
-                    </com:TActiveTemplateColumn>
+                    </com:TTemplateColumn>
                     
-                    <com:TActiveButtonColumn
+                    <com:TButtonColumn
                         ID="BuyItemColumn"
                         HeaderText=""
                         Text="Acheter"
@@ -160,10 +160,12 @@
                         CommandName="buyItem"
                     />
 
-                </com:TActiveDataGrid>
+                </com:TDataGrid>
                 
             </com:TTabView>
          </com:TTabPanel>
+
+         <com:TJavascriptLogger />
                 
 	</div>
  

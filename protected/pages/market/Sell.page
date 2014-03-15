@@ -111,7 +111,8 @@
                     >
                         <prop:ClientSide.onSlide>
                             $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
-                            $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;                            
+                            $('<%=$this->Parent->ItemTotalCostColumn->ItemTotalCost->ClientId%>').value = value * $('<%=$this->Parent->ItemCostColumn->ItemCost->ClientId%>').innerHTML;
+                            $('<%=$this->Parent->SellItemColumn->Button->ClientId%>').enable = (value != 0);                         
                         </prop:ClientSide.onSlide>
                         <prop:ClientSide.onChange>
                             $('<%=$this->SliderResult->ClientId%>').innerHTML = value;
@@ -127,7 +128,7 @@
             <com:TTemplateColumn ID="ItemTotalCostColumn" ItemStyle.HorizontalAlign="Center">
                 <prop:HeaderTemplate>Prix total</prop:HeaderTemplate>
                 <prop:ItemTemplate>
-                    <com:TTextBox ID="ItemTotalCost" MaxLength="10" Columns="7" ReadOnly="true" Style="text-align:right"/>
+                    <com:TTextBox ID="ItemTotalCost" Text="0" MaxLength="10" Columns="7" ReadOnly="true" Style="text-align:right"/>
                 </prop:ItemTemplate>
             </com:TTemplateColumn>
             

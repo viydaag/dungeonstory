@@ -216,7 +216,7 @@ span
 	padding: 0;
 }
 
-.main-content > table
+.main-content table
 {
 	width: 98%;
 	color: #C2B190;
@@ -224,7 +224,7 @@ span
 	font-size: 12px;
 	margin: 0px;
 	padding: 0px;
-	table-layout:auto
+	table-layout:auto;
 }
 
 /************** side tabs styles **************/

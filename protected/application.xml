@@ -27,7 +27,8 @@
 	<module class="System.Util.TParameterModule" ParameterFile="Application.Common.Settings" />
 	<module id="exception" class="Application.Common.DSErrorHandler" />
 	<module id="log" class="System.Util.TLogRouter">
-        <route class="TFileLogRoute" Categories="DSApplication" />
+		<route class="TBrowserLogRoute" Levels="Debug,Info" Categories="DS" />
+        <route class="TFileLogRoute" Levels="Warning, Error" Categories="System.Web" />
 		<route class="TEmailLogRoute" Categories="DSApplication" Levels="Fatal" Emails="fortier.jc@gmail.com" SentFrom="admin@dungeonstory.com"/>
     </module>
 	<module id="request" class="THttpRequest" UrlManager="friendly-url" />

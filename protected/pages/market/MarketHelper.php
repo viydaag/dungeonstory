@@ -31,8 +31,10 @@ class MarketHelper
 	public static function getAllSellableEquipmentFromPerso($persoId) {
         $data = PersoEquipmentRecord::finder()->findAllByPersoId($persoId);
 		$data2 = new TList();
-		foreach ($data as $persoEquipment) {
-			if ($persoEquipment->equipment->isSellable == TRUE) {
+		foreach ($data as $persoEquipment) 
+		{
+			if ($persoEquipment->equipment->isSellable == TRUE) 
+			{
 				$data2->add($persoEquipment);
 			}
 		}
@@ -80,6 +82,20 @@ class MarketHelper
 		}
 
 		return $data;
+	}
+
+	public static function getAllSellableItemsForPerso($persoId, $type)
+	{
+		$data = PersoEquipmentRecord::finder()->findAllByPersoId($persoId);
+		$data2 = new TList();
+		foreach ($data as $persoEquipment) 
+		{
+			if ($persoEquipment->equipment->isSellable == TRUE && $persoEquipment->equipment->type == $type) 
+			{
+				$data2->add($persoEquipment);
+			}
+		}
+        return $data2;
 	}
 }
 ?>

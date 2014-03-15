@@ -44,6 +44,16 @@ class DSPage extends TPage
 	        else if ($object=$child->findComponentById($id)) return $object;
 	    }
 	    return null;
-}
+	}
+
+	public function debug($message)
+	{
+		Prado::log($message, Tlogger::DEBUG, "DS");
+	}
+
+	public function info($message)
+	{
+		Prado::log($message, Tlogger::INFO, "DS");
+	}
 }
 ?>
